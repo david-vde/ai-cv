@@ -1,0 +1,13 @@
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    Options -MultiViews
+    RewriteEngine On
+
+    # Si ce n'est ni un fichier physique existant, ni un dossier...
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # ... alors on envoie absolument tout vers index.php
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
