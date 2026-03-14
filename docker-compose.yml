@@ -5,7 +5,6 @@ volumes:
   mysql_data:
 
 services:
-  # 1. Base de données
   mysql:
     image: mysql:8.0
     container_name: n8n_mysql
@@ -20,7 +19,6 @@ services:
     ports:
       - "3306:3306"
 
-  # 2. Orchestrateur IA
   n8n:
     image: docker.n8n.io/n8nio/n8n
     container_name: n8n_local
@@ -45,27 +43,23 @@ services:
     depends_on:
       - mysql
 
-  # 3. NOUVEAU : Serveur Web (PHP 8.3 + Apache pour Symfony)
   php_server:
     image: php:8.3-apache
     container_name: symfony_php
     restart: always
     ports:
-      - "8000:80" # Ton backend sera accessible sur http://localhost:8000
+      - "8000:80"
     volumes:
-      - ./backend:/var/www/html # Lie ton dossier local au serveur
-    # Active le mod_rewrite indispensable pour Symfony
+      - ./backend:/var/www/html
     command: sh -c "a2enmod rewrite && apache2-foreground"
 
-  # 4. NOUVEAU : Serveur Node.js (pour React)
   react_dev:
     image: node:20-alpine
     container_name: react_node
     working_dir: /app
     ports:
-      - "5173:5173" # Port standard si tu utilises Vite (recommandé pour React)
-      - "3000:3000" # Port standard si tu utilises Create React App
+      - "5173:5173"
+      - "3000:3000"
     volumes:
-      - ./frontend:/app # Lie ton dossier local au conteneur Node
-    # Astuce : maintient le conteneur en vie même si React n'est pas encore installé
+      - ./frontend:/app
     command: sh -c "npm run dev || tail -f /dev/null"
