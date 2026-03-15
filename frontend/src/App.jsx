@@ -2,7 +2,6 @@ import './App.css'
 import {ChatBox} from "./chat/components/ChatBox.jsx";
 import "./assets/sass/layout.scss";
 import Header from "./header/components/Header.jsx";
-import SideBar from "./sidebar/components/SideBar.jsx";
 import {useRef} from "react";
 
 function App() {
@@ -24,10 +23,8 @@ function App() {
             <div className="chat-header-title">Avatar virtuel — David Vander Elst</div>
             <div className="chat-header-sub" id="chat-status">En ligne</div>
           </div>
-          <ChatBox ref={refChatBox}/>
+          <ChatBox ref={refChatBox} onClickPresetQuestion={onClickPresetQuestion}/>
         </div>
-
-        <SideBar onClickPresetQuestion={onClickPresetQuestion} />
       </div>
     </div>
   );
