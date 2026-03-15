@@ -1,16 +1,11 @@
 <?php
 
-namespace App\N8N\Webhook;
+namespace App\Webhook;
 
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-readonly class WebhookPusher
+readonly class N8nQuestionPusher implements QuestionPusherInterface
 {
     /**
      * @param HttpClientInterface $httpClient
@@ -33,7 +28,7 @@ readonly class WebhookPusher
         $allMessages = '';
 
         foreach ($chatRequest['messages'] as $message) {
-            $allMessages .= (!empty($allMessages) ? ".\n" : "") . $message['text'];
+            $allMessages .= (!empty($allMessages) ? "\n" : "") . $message['text'];
         }
 
         try {
