@@ -37,14 +37,4 @@ class ChatController extends AbstractController
             ], 500);
         }
     }
-
-    #[Route('/api/helloworld', name: 'helloworld', methods: ['GET'])]
-    public function helloWorld(Request $request, HttpClientInterface $httpClient): JsonResponse
-    {
-        return $this->json([
-            'text' => 'Hello world !'
-        ], 200);
-
-    }
-
 }

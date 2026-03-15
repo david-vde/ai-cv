@@ -49,11 +49,9 @@ readonly class WebhookPusher
             );
 
             $data = $response->toArray();
-
             $answer = $data['output'];
 
         } catch (\Throwable $e) {
-            dump($e->getMessage());
             $answer = null;
         }
 
