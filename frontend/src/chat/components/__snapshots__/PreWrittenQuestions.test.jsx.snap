@@ -1,0 +1,1181 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PreWrittenQuestions > affiche la question '{ cta: '⚠️ Tes faiblesses', q: 'Quelles sont tes faiblesses / tes points faibles ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > affiche la question '{ cta: '⭐ Tes qualités', q: 'Quelles sont tes qualités / tes points forts ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > affiche la question '{ cta: '🎯Hobbies', q: 'Quels sont tes hobbies ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > affiche la question '{ cta: '👨\\u200d👩\\u200d👧 Situation familiale', q: 'Quelle est ta situation familiale ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > affiche la question '{ cta: '👯\\u200d♀️ Travail en équipe', q: 'Comment travaillez-vous avec les autres ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > affiche la question '{ cta: '💰 Salaire', q: 'Quelles sont tes prétentions salariales ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > affiche la question '{ cta: '💼 Raison de recherche d\\'emploi', q: 'Pourquoi tu cherches un nouveau poste ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > affiche la question '{ cta: '🔮 Vision du futur', q: 'Où te vois-tu dans quelques années ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > affiche la question '{ cta: '🧑 Présentation', q: 'Peux-tu te présenter un petit peu ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > affiche la question '{ cta: '🧠 Expérience', q: 'Parle-nous d\\'une expérience professionnelle pertinente.' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > déclenche onClickPresetQuestion pour '{ cta: '⚠️ Tes faiblesses', q: 'Quelles sont tes faiblesses / tes points faibles ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > déclenche onClickPresetQuestion pour '{ cta: '⭐ Tes qualités', q: 'Quelles sont tes qualités / tes points forts ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > déclenche onClickPresetQuestion pour '{ cta: '🎯Hobbies', q: 'Quels sont tes hobbies ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > déclenche onClickPresetQuestion pour '{ cta: '👨\\u200d👩\\u200d👧 Situation familiale', q: 'Quelle est ta situation familiale ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > déclenche onClickPresetQuestion pour '{ cta: '👯\\u200d♀️ Travail en équipe', q: 'Comment travaillez-vous avec les autres ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > déclenche onClickPresetQuestion pour '{ cta: '💰 Salaire', q: 'Quelles sont tes prétentions salariales ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > déclenche onClickPresetQuestion pour '{ cta: '💼 Raison de recherche d\\'emploi', q: 'Pourquoi tu cherches un nouveau poste ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > déclenche onClickPresetQuestion pour '{ cta: '🔮 Vision du futur', q: 'Où te vois-tu dans quelques années ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > déclenche onClickPresetQuestion pour '{ cta: '🧑 Présentation', q: 'Peux-tu te présenter un petit peu ?' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions > déclenche onClickPresetQuestion pour '{ cta: '🧠 Expérience', q: 'Parle-nous d\\'une expérience professionnelle pertinente.' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 Présentation
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 Raison de recherche d'emploi
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ Tes qualités
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ Tes faiblesses
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ Travail en équipe
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 Vision du futur
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 Expérience
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 Salaire
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯Hobbies
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 Situation familiale
+    </span>
+  </div>
+</DocumentFragment>
+`;

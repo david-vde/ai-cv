@@ -1,7 +1,7 @@
 export const backendConfig = {
-    "host": "localhost",
-    "port": 8000,
-    "protocol": "http",
+    "host": import.meta.env.VITE_BACKEND_HOST,
+    "port": import.meta.env.VITE_BACKEND_PORT,
+    "protocol": import.meta.env.VITE_BACKEND_PROTOCOL,
     "prefix": "/api"
 };
 

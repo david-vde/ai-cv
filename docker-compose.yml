@@ -1,5 +1,3 @@
-version: "3.8"
-
 volumes:
   n8n_data:
   mysql_data:
@@ -63,3 +61,11 @@ services:
     volumes:
       - ./frontend:/app
     command: sh -c "npm run dev || tail -f /dev/null"
+
+  react_test:
+    image: node:20-alpine
+    container_name: react_test_node
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+    command: tail -f /dev/null

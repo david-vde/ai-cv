@@ -1,7 +1,8 @@
 import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import PreWrittenQuestions from "./PreWrittenQuestions";
 
-const PreWrittenQuestions = (props) => {
-  const {onClickPresetQuestion} = props;
+describe("PreWrittenQuestions - Rendering", () => {
   const questions = [
     {cta: "🧑 Présentation", q: "Peux-tu te présenter un petit peu ?"},
     {cta: "💼 Raison de recherche d'emploi", q: "Pourquoi tu cherches un nouveau poste ?"},
@@ -15,17 +16,18 @@ const PreWrittenQuestions = (props) => {
     {cta: "👨‍👩‍👧 Situation familiale", q: "Quelle est ta situation familiale ?"}
   ];
 
-  return (
-    <div className="cta-row">
-      {
-        questions.map((q) => {
-          return (
-            <span className="cta-chip" onClick={() => onClickPresetQuestion(q.q)}>{q.cta}</span>
-          );
-        })
-      }
-    </div>
-  );
-}
+  it.each(questions)("affiche la question '%s'", (question) => {
+    const { asFragment } = render(<PreWrittenQuestions onClickPresetQuestion={() => {}} />);
+    expect(screen.getByText(question.cta)).toBeInTheDocument();
+    expect(asFragment()).toMatchSnapshot();
+  });
 
-export default PreWrittenQuestions;
+  it.each(questions)("déclenche onClickPresetQuestion pour '%s'", (question) => {
+    const mockClick = vi.fn();
+    const { asFragment } = render(<PreWrittenQuestions onClickPresetQuestion={mockClick} />);
+    fireEvent.click(screen.getByText(question.cta));
+    expect(mockClick).toHaveBeenCalledWith(question.q);
+    expect(asFragment()).toMatchSnapshot();
+  });
+});
+

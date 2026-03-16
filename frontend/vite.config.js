@@ -5,11 +5,17 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: true, // Force Vite à écouter sur toutes les adresses IP (0.0.0.0)
+    host: true,
     port: 5173,
     strictPort: true,
     watch: {
-      usePolling: true // Indispensable sous Windows pour que le Hot Reload fonctionne à travers Docker
+      usePolling: true
     }
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.js',
+    css: true
   }
 })

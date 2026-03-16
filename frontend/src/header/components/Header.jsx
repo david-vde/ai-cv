@@ -1,5 +1,4 @@
 import React from "react";
-import {ChatBox} from "../../chat/components/ChatBox.jsx";
 import SkillTags from "./SkillTags.jsx";
 import ContactLinks from "./ContactLinks.jsx";
 import LinksPanel from "./LinksPanel.jsx";

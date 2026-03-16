@@ -1,5 +1,5 @@
 import './App.css'
-import {ChatBox} from "./chat/components/ChatBox.jsx";
+import ChatBox from "./chat/components/ChatBox.jsx";
 import "./assets/sass/layout.scss";
 import Header from "./header/components/Header.jsx";
 import {useRef} from "react";

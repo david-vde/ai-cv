@@ -5,7 +5,7 @@ import {chatAskQuestion} from "../queries/ask-question.jsx";
 import PreWrittenQuestions from "./PreWrittenQuestions.jsx";
 import davidPicture from "../../assets/pictures/david-avatar.png";
 
-export const ChatBox = forwardRef((props, ref) => {
+const ChatBox = forwardRef((props, ref) => {
   const {onClickPresetQuestion} = props;
   const sessionId = useMemo(() => crypto.randomUUID(), []);
   const refDeepChat = useRef(null)
@@ -158,3 +158,5 @@ export const ChatBox = forwardRef((props, ref) => {
     </>
   );
 });
+
+export default ChatBox;
