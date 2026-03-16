@@ -115,14 +115,12 @@ final class ChatControllerTest extends TestCase
         $request = $this->createMock(Request::class);
         $request->method('getContent')->willReturn($jsonContent);
 
-        $httpClient = $this->createMock(HttpClientInterface::class);
-
         $this->pusher->expects($this->once())
             ->method('pushTextRequest')
             ->with($question, $sessionId)
             ->willThrowException(new \Exception('Some exception'));
 
-        $response = $this->controller->chat($request, $httpClient);
+        $response = $this->controller->chat($request);
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertSame(json_encode(['error' => 'Unable to contact AI agent.']), $response->getContent());

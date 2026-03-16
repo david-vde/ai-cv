@@ -17,7 +17,7 @@ readonly class ChatController
     }
 
     #[Route('/api/chat', name: 'api_chat', methods: ['POST'])]
-    public function chat(Request $request, HttpClientInterface $httpClient): JsonResponse
+    public function chat(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $question = $data['question'] ?? null;
