@@ -64,4 +64,12 @@ final class ChatLogTest extends TestCase
         $chatLog->setError($error);
         $this->assertSame($error, $chatLog->getError());
     }
+
+    public function testIdSetterGetter(): void
+    {
+        $chatLog = new ChatLog();
+        $id = 123;
+        $chatLog->setId($id);
+        $this->assertSame($id, $chatLog->getId());
+    }
 }
