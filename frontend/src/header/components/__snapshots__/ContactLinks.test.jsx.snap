@@ -1,0 +1,24 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ContactLinks - rendering > renders the phone/email link with the correct value 1`] = `
+<div>
+  <div
+    class="contacts"
+  >
+    <a
+      class="contact-item phone"
+      href="tel:+32000000000"
+    >
+      📱 
+      +32000000000
+    </a>
+    <a
+      class="contact-item email"
+      href="mailto:some@email.com"
+    >
+      ✉️ 
+      some@email.com
+    </a>
+  </div>
+</div>
+`;

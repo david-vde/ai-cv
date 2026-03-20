@@ -3,7 +3,12 @@ import SkillTags from "./SkillTags.jsx";
 import ContactLinks from "./ContactLinks.jsx";
 import LinksPanel from "./LinksPanel.jsx";
 import davidPicture from "../../assets/pictures/david-avatar.png";
+import {useConfig} from "../../configs/context/ConfigContext.jsx";
+import HeaderTabs from "./HeaderTabs.jsx";
+
 const Header = () => {
+  const { configs } = useConfig();
+
   return (
     <header className="header">
       <div className="header-inner">
@@ -11,18 +16,17 @@ const Header = () => {
           <img className="avatar" src={davidPicture} alt={"David"} />
         </div>
         <div className="bio">
-          <div className="bio-name">David Vander Elst</div>
-          <div className="bio-title">Senior PHP developer&nbsp;&nbsp;·&nbsp; <span>20 ans d'expérience</span></div>
+          <div className="bio-name">{configs['contact.firstname']} {configs['contact.lastname']}</div>
+          <div className="bio-title">
+            {configs['contact.profession']}&nbsp;&nbsp;·&nbsp;&nbsp;
+            <span>{configs['contact.experience_years']} ans d'expérience</span>
+          </div>
           <SkillTags />
           <ContactLinks />
         </div>
         <LinksPanel />
       </div>
-      <nav className="nav-tabs">
-        <div className="nav-tab active">Chat</div>
-        <div className="nav-tab">Parcours</div>
-        <div className="nav-tab">Projets</div>
-      </nav>
+      <HeaderTabs />
     </header>
   );
 }

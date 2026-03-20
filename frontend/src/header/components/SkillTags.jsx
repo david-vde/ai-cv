@@ -1,16 +1,32 @@
 import React from "react";
+import {useConfig} from "../../configs/context/ConfigContext.jsx";
+import _ from "lodash";
 
 const SkillTags = () => {
+  const { configs } = useConfig();
+  let skills = JSON.parse(_.get(configs, ['contact.skill_tags'], '[]'));
+
+  if (skills.length < 1) {
+    return null;
+  }
+
   return (
     <div className="tags">
-      <span className="tag tag-php">PHP</span>
-      <span className="tag tag-sym">Symfony</span>
-      <span className="tag tag-mysql">MySQL</span>
-      <span className="tag tag-js">JavaScript</span>
-      <span className="tag tag-react">React.js</span>
-      <span className="tag tag-test">PHPUnit</span>
-      <span className="tag tag-test">Jest</span>
-      <span className="tag tag-rabbit">RabbitMQ</span>
+      {
+        skills.map((skill, index) => (
+          <span
+            key={index}
+            className={"tag"}
+            style={{
+              backgroundColor: "#" + skill[1],
+              color: "#" + skill[2],
+              borderColor: "#" + skill[3]
+            }}
+          >
+            {skill[0]}
+          </span>
+        ))
+      }
     </div>
   );
 }

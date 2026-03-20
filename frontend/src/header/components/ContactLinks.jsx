@@ -1,18 +1,13 @@
 import React from "react";
+import { useConfig } from '../../configs/context/ConfigContext';
 
 const ContactLinks = () => {
-
-  function reveal(encoded) {
-    return atob(encoded);
-  }
-
-  const email = reveal("ZGF2aWQudmFuZGVyZWxzdEBnbWFpbC5jb20=");
-  const phone = reveal("KzMyIDQ4NSA1OSAyNyA5OQ==");
+  const { configs } = useConfig();
 
   return (
     <div className="contacts">
-      <a className="contact-item" href={"tel:" + phone}>📱 {phone}</a>
-      <a className="contact-item" href={"mailto:" + email}>✉️ {email}</a>
+      <a className="contact-item phone" href={"tel:" + configs['contact.phone']}>📱 {configs['contact.phone']}</a>
+      <a className="contact-item email" href={"mailto:" + configs['contact.email']}>✉️ {configs['contact.email']}</a>
     </div>
   );
 }

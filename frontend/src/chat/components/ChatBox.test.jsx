@@ -1,34 +1,21 @@
-import React from "react";
+import React, {useImperativeHandle as mockedUseImperativeHandle} from "react";
 import {act, render, screen} from "@testing-library/react";
+import {useConfig as mockedUseConfig} from "../../configs/context/ConfigContext.jsx";
 import ChatBox from "./ChatBox.jsx";
 
 const mockSubmitUserMessage = vi.fn();
+
+vi.mock('../../configs/context/ConfigContext', () => ({
+    useConfig: vi.fn() }
+));
 
 vi.mock("react", async () => {
   const actual = await vi.importActual("react");
   return {
     ...actual,
-    forwardRef: (renderFn) => {
-      return (props) => {
-        const ref = props.ref;
-        if (ref && typeof ref === "object" && ref.current === null) {
-          ref.current = {};
-        }
-        return renderFn(props, ref);
-      };
-    },
+    forwardRef: vi.fn(Component => Component),
     useEffect: vi.fn((fn) => fn()),
-    useImperativeHandle: (ref, create, deps) => {
-      if (typeof ref === "object" && ref !== null) {
-        const value = create();
-        if (ref.current !== undefined) {
-          if (ref.current === null) ref.current = {};
-          Object.assign(ref.current, value);
-        } else {
-          Object.assign(ref, value);
-        }
-      }
-    },
+    useImperativeHandle: vi.fn(),
     useMemo: vi.fn((fn) => fn()),
     useRef: vi.fn(() => ({ current: { submitUserMessage: mockSubmitUserMessage } })),
   };
@@ -39,7 +26,6 @@ vi.mock("../queries/ask-question.jsx", () => ({
 }));
 
 vi.mock("./PreWrittenQuestions.jsx", () => ({
-  __esModule: true,
   default: () => <div data-testid="prewritten-questions">PreWrittenQuestions</div>
 }));
 
@@ -50,6 +36,20 @@ vi.mock("deep-chat-react", () => ({
     </div>
   )
 }));
+
+function mockUseConfig() {
+  mockedUseConfig.mockImplementationOnce(() => ({
+    configs: {
+      'contact.firstname': 'John',
+      'contact.lastname': 'Doe'
+    },
+    loading: false
+  }));
+}
+
+beforeEach(() => {
+  mockUseConfig();
+});
 
 describe("ChatBox - rendering", () => {
   it("renders DeepChat with history prop, PreWrittenQuestions, matches snapshot and checks history value", () => {
@@ -63,15 +63,23 @@ describe("ChatBox - rendering", () => {
 });
 
 describe("ChatBox - sendPreset imperative handle",  () => {
+  let capturedSendPreset;
+
+  beforeEach(() => {
+    capturedSendPreset = undefined;
+  });
+
   it("Calls submitUserMessage on refDeepChat when sendPreset is called", () => {
-    const ref = { current: {} };
+    const ref = React.createRef();
+
+    mockedUseImperativeHandle.mockImplementationOnce((ref, callback) => {
+      let {sendPreset} = callback();
+      capturedSendPreset = sendPreset;
+    });
 
     render(<ChatBox ref={ref} onClickPresetQuestion={() => {}} />);
 
-    expect(ref.current.sendPreset).toBeDefined();
-    expect(typeof ref.current.sendPreset).toBe("function");
-
-    ref.current.sendPreset("test preset");
+    capturedSendPreset("test preset");
 
     expect(mockSubmitUserMessage).toHaveBeenCalledWith({ text: "test preset" });
   });
