@@ -6,5 +6,8 @@ export const backendConfig = {
 };
 
 export const getBackendUrl = () => {
-    return backendConfig.protocol + "://" + backendConfig.host + ":" + backendConfig.port + backendConfig.prefix;
+    return backendConfig.protocol + "://"
+        + backendConfig.host
+        + (typeof backendConfig.port === "string" ? ":" + backendConfig.port : "")
+        + backendConfig.prefix;
 }
