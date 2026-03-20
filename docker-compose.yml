@@ -54,18 +54,14 @@ services:
   react_dev:
     image: node:20-alpine
     container_name: react_node
+    restart: always
     working_dir: /app
     ports:
       - "5173:5173"
       - "3000:3000"
     volumes:
       - ./frontend:/app
-    command: sh -c "npm run dev || tail -f /dev/null"
-
-  react_test:
-    image: node:20-alpine
-    container_name: react_test_node
-    working_dir: /app
-    volumes:
-      - ./frontend:/app
-    command: tail -f /dev/null
+      - /app/node_modules
+    command: sh -c "npm install && npm run dev -- --host"
+    environment:
+      - BACKEND_URL=http://php_server:80/api
