@@ -2,6 +2,7 @@
 
 namespace App\Tests\Webhook;
 
+use App\ChatLogger\ChatLoggerInterface;
 use App\Webhook\N8nQuestionPusher;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -12,6 +13,7 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 final class N8nQuestionPusherTest extends TestCase
 {
     private (HttpClientInterface&MockObject)|null $httpClient;
+    private (ChatLoggerInterface&MockObject)|null $chatLogger;
     private ?N8nQuestionPusher $n8nQuestionPusher;
     private string $n8nWebhookUrl = 'http://webhook.url';
 
@@ -22,7 +24,8 @@ final class N8nQuestionPusherTest extends TestCase
     protected function setUp(): void
     {
        $this->httpClient = $this->createMock(HttpClientInterface::class);
-       $this->n8nQuestionPusher = new N8nQuestionPusher($this->httpClient, $this->n8nWebhookUrl);
+       $this->chatLogger = $this->createMock(ChatLoggerInterface::class);
+       $this->n8nQuestionPusher = new N8nQuestionPusher($this->httpClient, $this->chatLogger, $this->n8nWebhookUrl);
     }
 
     /**
@@ -31,6 +34,7 @@ final class N8nQuestionPusherTest extends TestCase
     protected function tearDown(): void
     {
         $this->httpClient = null;
+        $this->chatLogger = null;
         $this->n8nQuestionPusher = null;
     }
 
@@ -54,6 +58,29 @@ final class N8nQuestionPusherTest extends TestCase
             ->method('toArray')
             ->willReturn(['output' => $expectedAnswer]);
 
+        $matcher = $this->exactly(2);
+        $this
+            ->chatLogger
+            ->expects($matcher)
+            ->method('log')
+            ->with(
+                $this->callback(function(string $sender) use ($matcher) {
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $sender === 'webuser',
+                        2 => $sender === 'chatbot',
+                        default => false,
+                    };
+                }),
+                $this->callback(function(string $messages) use ($matcher) {
+                    return match ($matcher->numberOfInvocations()) {
+                        1 => $messages === "Hello\nHow are you?",
+                        2 => $messages === 'Some AI response',
+                        default => false,
+                    };
+                }),
+                $sessionId
+            )
+        ;
         $this->httpClient->expects($this->once())
             ->method('request')
             ->with(

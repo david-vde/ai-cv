@@ -37,7 +37,7 @@ readonly class N8nQuestionPusher implements QuestionPusherInterface
             $allMessages .= (!empty($allMessages) ? "\n" : "") . $message['text'];
         }
 
-        $this->chatLogger->log('webuser', $allMessages, $sessionId, ChatLogStatus::SUCCESS);
+        $this->chatLogger->log('webuser', $allMessages, $sessionId);
 
         try {
             $response = $this->httpClient->request(
@@ -60,7 +60,7 @@ readonly class N8nQuestionPusher implements QuestionPusherInterface
             $error = $e->getMessage();
         }
 
-        $this->chatLogger->log('chatbot', $answer, $sessionId, $status, $error);
+        $this->chatLogger->log('chatbot', (string)$answer, $sessionId, $status, $error);
 
         return [
             'answer' => $answer,
