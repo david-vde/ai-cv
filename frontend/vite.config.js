@@ -1,9 +1,13 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
+import configInjectPlugin from './vite-plugin-config-inject.js';
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    configInjectPlugin()
+  ],
   server: {
     host: true,
     port: 5173,
