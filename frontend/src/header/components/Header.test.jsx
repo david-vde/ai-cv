@@ -23,6 +23,12 @@ vi.mock('../../configs/context/ConfigContext', () => ({
     useConfig: vi.fn() }
 ));
 
+vi.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key, params) => key + " - translated - " + (params ? JSON.stringify(params) : "")
+  })
+}));
+
 function mockUseConfig(configs, loading = false) {
   mockedUseConfig.mockImplementationOnce(() => ({
     configs, loading
@@ -41,7 +47,7 @@ describe("Header - rendering", () => {
     const {container, getByText} = render(<Header />);
     expect(container.querySelector(".bio-name")).toHaveTextContent("John Doe");
     expect(container.querySelector(".bio-title")).toHaveTextContent("Ingenier");
-    expect(container.querySelector(".bio-title span")).toHaveTextContent("5");
+    expect(container.querySelector(".bio-title span")).toHaveTextContent('profile.yearsOfExperience - translated - {"years":5}');
     expect(container.querySelector(".MockedSkillTags").textContent).toBe("SkillTags");
     expect(container.querySelector(".MockedContactLinks").textContent).toBe("ContactLinks");
     expect(container.querySelector(".MockedLinksPanel").textContent).toBe("LinksPanel");

@@ -6,20 +6,19 @@ import PreWrittenQuestions from "./PreWrittenQuestions.jsx";
 import davidPicture from "../../assets/pictures/david-avatar.png";
 import {useConfig} from "../../configs/context/ConfigContext.jsx";
 import _ from "lodash";
+import {useTranslation} from "react-i18next";
 
 const ChatBox = forwardRef((props, ref) => {
   const {onClickPresetQuestion} = props;
   const sessionId = useMemo(() => crypto.randomUUID(), []);
   const refDeepChat = useRef(null)
   const {configs} = useConfig();
+  const { t } = useTranslation();
+
   const history = [
     {
       role: "ai",
-      text: "Bonjour et bienvenue sur l'avatar virtuel de **David Vander Elst**.\n\n" +
-        "Posez-moi vos questions sur moi, mon parcours professionnel, mes attentes, ma vision du futur, ou tout autre sujet en lien avec ma carrière de développeur.\n\n" +
-        "Je suis là pour vous aider à mieux me connaître et à évaluer si je suis le candidat idéal pour votre entreprise avant un entretien réel.\n\n" +
-        "N'hésitez pas à me poser des questions précises ou à me demander des détails sur mes expériences passées.\n\n" +
-        "Je suis ouvert à la discussion et prêt à partager mon parcours avec vous! 😊"
+      text: t("chatbot.helloMessage")
     },
   ];
 
@@ -47,8 +46,8 @@ const ChatBox = forwardRef((props, ref) => {
     <>
       <div className="chat-header">
         <div className="chat-dot"></div>
-        <div className="chat-header-title">Avatar virtuel — {personName}</div>
-        <div className="chat-header-sub" id="chat-status">En ligne</div>
+        <div className="chat-header-title">{ t("chatbot.virtualAvatar") } — {personName}</div>
+        <div className="chat-header-sub" id="chat-status">{ t("chatbot.status.online") }</div>
       </div>
       <div className="chat-box-container">
 
@@ -56,7 +55,7 @@ const ChatBox = forwardRef((props, ref) => {
           <svg width="12" height="12" fill="currentColor" viewBox="0 0 16 16">
             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
           </svg>
-          Les conversations sont anonymes, enregistrées et consultées uniquement par {personName}.
+          { t("chatbot.messageLogWarning", {personName: personName}) }
         </div>
 
         <DeepChat
@@ -72,7 +71,7 @@ const ChatBox = forwardRef((props, ref) => {
           }}
           textInput={{
             placeholder: {
-              text: "Posez-moi vos questions!"
+              text: t("chatbot.placeholder")
             },
             styles: {
               container: {

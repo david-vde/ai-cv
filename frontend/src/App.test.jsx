@@ -48,6 +48,11 @@ vi.mock("./configs/context/ConfigContext.jsx", () => {
   };
 });
 
+vi.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key) => key + " - translated"
+  })
+}));
 
 vi.mock("react-router", () => ({
   Route: (props) => (
