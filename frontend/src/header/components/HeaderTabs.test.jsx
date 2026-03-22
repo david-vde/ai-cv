@@ -14,18 +14,29 @@ vi.mock("react-router", () => ({
   }
 }));
 
+vi.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key) => key + " - translated"
+  })
+}));
+
+vi.mock("./LanguageSelector.jsx", () => {
+  return {
+    default: () => <div className="MockedLanguageSelector">LanguageSelector</div>
+  };
+});
+
 describe("HeaderTabs - rendering", () => {
   it("renders links with the correct 'to' prop and children content", () => {
     const { container } = render(<HeaderTabs />);
     const links = container.querySelectorAll(".MockedLink");
     expect(links.length).toBe(3);
-    expect(container.querySelector(".nav-tab.active")).toHaveTextContent("C.V.");
+    expect(container.querySelector(".nav-tab.active")).toHaveTextContent("tabs.cv.label - translated");
     expect(links[0].querySelector(".to").textContent).toBe("/");
-    expect(links[0].querySelector(".children").textContent).toBe("Chatbot");
+    expect(links[0].querySelector(".children").textContent).toBe("tabs.chatbot.label - translated");
     expect(links[1].querySelector(".to").textContent).toBe("/cv");
-    expect(links[1].querySelector(".children").textContent).toBe("C.V.");
+    expect(links[1].querySelector(".children").textContent).toBe("tabs.cv.label - translated");
     expect(links[2].querySelector(".to").textContent).toBe("/career");
-    expect(links[2].querySelector(".children").textContent).toBe("Carrière");
+    expect(links[2].querySelector(".children").textContent).toBe("tabs.career.label - translated");
   });
 });
-

@@ -1,0 +1,61 @@
+{
+  "chatbot": {
+    "helloMessage": "Hello and welcome to the virtual avatar of **David Vander Elst**.\n\nFeel free to ask me questions about myself, my professional background, my expectations, my vision of the future, or any other topic related to my career as a developer.\n\nI am here to help you get to know me better and assess whether I am the ideal candidate for your company before a real interview.\n\nDon't hesitate to ask me specific questions or to request details about my past experiences.\n\nI am open to discussion and ready to share my professional background with you! 😊",
+    "virtualAvatar": "Virtual Avatar",
+    "status": {
+      "online": "Online",
+      "offline": "Offline"
+    },
+    "messageLogWarning": "Conversations are anonymous, recorded and only accessible by {{personName}}.",
+    "placeholder": "Ask me your questions!"
+  },
+  "question": {
+    "preWritten": {
+      "short": {
+        "introduce": "Introduce yourself",
+        "jobSearchReason": "Reason for job search",
+        "quality": "Your strengths",
+        "weakness": "Your weaknesses",
+        "teamwork": "Teamwork",
+        "futureVision": "Future vision",
+        "experience": "Experience",
+        "salary": "Salary",
+        "hobbies": "Hobbies",
+        "familySituation": "Family situation"
+      },
+      "full": {
+        "introduce": "Can you introduce yourself briefly?",
+        "jobSearchReason": "Why are you looking for a new position?",
+        "quality": "What are your strengths?",
+        "weakness": "What are your weaknesses?",
+        "teamwork": "How do you work with others?",
+        "futureVision": "Where do you see yourself in a few years?",
+        "experience": "Tell us about a relevant professional experience.",
+        "salary": "What are your salary expectations?",
+        "hobbies": "What are your hobbies?",
+        "familySituation": "What is your family situation?"
+      }
+    }
+  },
+  "profile": {
+    "yearsOfExperience": "{{years}} years of experience"
+  },
+  "tabs": {
+    "chatbot": {
+      "label": "Chatbot"
+    },
+    "cv": {
+      "label": "Resume"
+    },
+    "career": {
+      "label": "Career"
+    }
+  },
+  "errors": {
+    "http": {
+      "404": {
+        "label": "Page not found"
+      }
+    }
+  }
+}

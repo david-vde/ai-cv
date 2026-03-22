@@ -1,0 +1,61 @@
+{
+  "chatbot": {
+    "helloMessage": "Hallo en welkom bij de virtuele avatar van **David Vander Elst**.\n\nStel me gerust vragen over mezelf, mijn professionele achtergrond, mijn verwachtingen, mijn toekomstvisie, of elk ander onderwerp dat verband houdt met mijn carrière als ontwikkelaar.\n\nIk ben hier om u te helpen mij beter te leren kennen en te beoordelen of ik de ideale kandidaat voor uw bedrijf ben, voordat u een echt gesprek voert.\n\nAarzel niet om mij gerichte vragen te stellen of meer details te vragen over mijn vroegere ervaringen.\n\nIk sta open voor discussie en deel graag mijn professionele achtergrond met u! 😊",
+    "virtualAvatar": "Virtuele Avatar",
+    "status": {
+      "online": "Online",
+      "offline": "Offline"
+    },
+    "messageLogWarning": "Conversaties zijn anoniem, opgeslagen en alleen toegankelijk voor {{personName}}.",
+    "placeholder": "Stel hier uw vragen!"
+  },
+  "question": {
+    "preWritten": {
+      "short": {
+        "introduce": "Voorstelling",
+        "jobSearchReason": "Reden voor het zoeken van een baan",
+        "quality": "Jouw kwaliteiten",
+        "weakness": "Jouw zwakke punten",
+        "teamwork": "Teamwerk",
+        "futureVision": "Toekomstvisie",
+        "experience": "Ervaring",
+        "salary": "Salaris",
+        "hobbies": "Hobby's",
+        "familySituation": "Gezinssituatie"
+      },
+      "full": {
+        "introduce": "Kun je jezelf kort voorstellen?",
+        "jobSearchReason": "Waarom ben je op zoek naar een nieuwe functie?",
+        "quality": "Wat zijn jouw kwaliteiten / sterke punten?",
+        "weakness": "Wat zijn jouw zwakke punten?",
+        "teamwork": "Hoe werk je samen met anderen?",
+        "futureVision": "Waar zie je jezelf over een paar jaar?",
+        "experience": "Vertel ons over een relevante werkervaring.",
+        "salary": "Wat zijn jouw salarisverwachtingen?",
+        "hobbies": "Wat zijn jouw hobby's?",
+        "familySituation": "Wat is jouw gezinssituatie?"
+      }
+    }
+  },
+  "profile": {
+    "yearsOfExperience": "{{years}} jaar ervaring"
+  },
+  "tabs": {
+    "chatbot": {
+      "label": "Chatbot"
+    },
+    "cv": {
+      "label": "CV"
+    },
+    "career": {
+      "label": "Loopbaan"
+    }
+  },
+  "errors": {
+    "http": {
+      "404": {
+        "label": "Pagina niet gevonden"
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import React, {useImperativeHandle as mockedUseImperativeHandle} from "react";
-import {act, render, screen} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import {useConfig as mockedUseConfig} from "../../configs/context/ConfigContext.jsx";
 import ChatBox from "./ChatBox.jsx";
 
@@ -30,11 +30,18 @@ vi.mock("./PreWrittenQuestions.jsx", () => ({
 }));
 
 vi.mock("deep-chat-react", () => ({
-  DeepChat: ({ history }) => (
+  DeepChat: ({ history, textInput }) => (
     <div data-testid="deep-chat">
-      {history && <span data-testid="history-present">History loaded</span>}
+      <div data-testid="history-values">{JSON.stringify(history)}</div>
+      <div data-testid="placeholder-value">{textInput?.placeholder?.text}</div>
     </div>
   )
+}));
+
+vi.mock("react-i18next", () => ({
+  useTranslation: () => ({
+    t: (key) => key + " - translated"
+  })
 }));
 
 function mockUseConfig() {
@@ -52,12 +59,19 @@ beforeEach(() => {
 });
 
 describe("ChatBox - rendering", () => {
-  it("renders DeepChat with history prop, PreWrittenQuestions, matches snapshot and checks history value", () => {
+  it("renders DeepChat with history and placeholder props, PreWrittenQuestions, matches snapshot and checks values", () => {
     const ref = React.createRef();
     const { container } = render(<ChatBox ref={ref} onClickPresetQuestion={() => {}} />);
     expect(screen.getByTestId("deep-chat")).toBeInTheDocument();
-    expect(screen.getByTestId("history-present")).toBeInTheDocument();
     expect(screen.getByTestId("prewritten-questions")).toBeInTheDocument();
+
+    const historyDiv = screen.getByTestId("history-values");
+    expect(historyDiv).toBeInTheDocument();
+    expect(historyDiv.textContent).toBe('[{"role":"ai","text":"chatbot.helloMessage - translated"}]');
+
+    const placeholderDiv = screen.getByTestId("placeholder-value");
+    expect(placeholderDiv).toBeInTheDocument();
+    expect(placeholderDiv.textContent).toBe("chatbot.placeholder - translated");
     expect(container).toMatchSnapshot();
   });
 });

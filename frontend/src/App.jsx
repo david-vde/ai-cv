@@ -6,10 +6,12 @@ import Header from "./header/components/Header.jsx";
 import {PacmanLoader} from "react-spinners";
 import {useConfig} from "./configs/context/ConfigContext.jsx";
 import {Route, Routes} from "react-router"
+import {useTranslation} from "react-i18next";
 
 function App() {
   const refChatBox = useRef(null);
   const { loading: loadingConfig } = useConfig();
+  const { t } = useTranslation();
 
   const onClickPresetQuestion = (question) => {
     if (refChatBox.current) {
@@ -35,7 +37,7 @@ function App() {
             <Route path="/" element={<ChatBox ref={refChatBox} onClickPresetQuestion={onClickPresetQuestion}/>} />
             <Route path="/cv" element={<div>CV</div>} />
             <Route path="/career" element={<div>Career</div>} />
-            <Route path="*" element={<h2>404 - Page non trouvée</h2>} />
+            <Route path="*" element={<h2>404 - {t("errors.http.404.label")}</h2>} />
           </Routes>
         </div>
       </div>

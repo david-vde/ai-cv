@@ -38,7 +38,7 @@ describe("LinksPanel - rendering", () => {
 
     expect(githubLink).toHaveTextContent("GitHub");
     expect(linkedinLink).toHaveTextContent("LinkedIn");
-    expect(repoLink).toHaveTextContent("Repo du chatbot");
+    expect(repoLink).toHaveTextContent("Chatbot repository");
 
     expect(githubLink).toHaveTextContent("FaGithub");
     expect(linkedinLink).toHaveTextContent("FaLinkedin");

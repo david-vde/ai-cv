@@ -15,7 +15,7 @@ const LinksPanel = () => {
         <FaLinkedin size={14} /> LinkedIn
       </a>
       <a href={_.get(configs, ['contact.chatbot_github_repository'])} className="link-btn link-repo" target="_blank">
-        <FaGithub size={14} /> Repo du chatbot
+        <FaGithub size={14} /> Chatbot repository
       </a>
     </div>
   );

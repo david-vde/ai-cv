@@ -215,12 +215,26 @@ body {
 /* NAVIGATION */
 .nav {
   &-tabs {
+    justify-content: flex-start;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 0.7rem 0 2rem;
     display: flex;
     border-top: 1px solid #21262d;
     margin-top: 1rem;
+  }
+
+  &-lang {
+    position: relative;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    padding-bottom: 2px;
+  }
+
+  &-lang select:hover {
+    border-color: #00d9a6;
+    color: #e6edf3;
   }
 
   &-tab {

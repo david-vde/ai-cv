@@ -1,0 +1,61 @@
+{
+  "chatbot": {
+    "helloMessage": "Bonjour et bienvenue sur l'avatar virtuel de **David Vander Elst**.\n\nPosez-moi vos questions sur moi, mon parcours professionnel, mes attentes, ma vision du futur, ou tout autre sujet en lien avec ma carrière de développeur.\n\nJe suis là pour vous aider à mieux me connaître et à évaluer si je suis le candidat idéal pour votre entreprise avant un entretien réel.\n\nN'hésitez pas à me poser des questions précises ou à me demander des détails sur mes expériences passées.\n\nJe suis ouvert à la discussion et prêt à partager mon parcours avec vous! 😊",
+    "virtualAvatar": "Avatar virtuel",
+    "status": {
+      "online": "En ligne",
+      "offline": "Hors ligne"
+    },
+    "messageLogWarning": "Les conversations sont anonymes, enregistrées et consultées uniquement par {{personName}}.",
+    "placeholder": "Posez-moi vos questions!"
+  },
+  "question": {
+    "preWritten": {
+      "short": {
+        "introduce":  "Présentation",
+        "jobSearchReason":  "Raison de recherche d'emploi",
+        "quality":  "Tes qualités",
+        "weakness":  "Tes faiblesses",
+        "teamwork":  "Travail en équipe",
+        "futureVision":  "Vision du futur",
+        "experience":  "Expérience",
+        "salary":  "Salaire",
+        "hobbies":  "Hobbies",
+        "familySituation":  "Situation familiale"
+      },
+      "full": {
+        "introduce": "Peux-tu te présenter un petit peu ?",
+        "jobSearchReason": "Pourquoi tu cherches un nouveau poste ?",
+        "quality": "Quelles sont tes qualités / tes points forts ?",
+        "weakness": "Quelles sont tes faiblesses / tes points faibles ?",
+        "teamwork": "Comment travaillez-vous avec les autres ?",
+        "futureVision": "Où te vois-tu dans quelques années ?",
+        "experience": "Parle-nous d'une expérience professionnelle pertinente.",
+        "salary": "Quelles sont tes prétentions salariales ?",
+        "hobbies": "Quels sont tes hobbies ?",
+        "familySituation": "Quelle est ta situation familiale ?"
+      }
+    }
+  },
+  "profile": {
+    "yearsOfExperience": "{{years}} années d'expérience"
+  },
+  "tabs": {
+    "chatbot": {
+      "label": "Chatbot"
+    },
+    "cv": {
+      "label": "C.V."
+    },
+    "career": {
+      "label": "Carrière"
+    }
+  },
+  "errors": {
+    "http": {
+      "404": {
+        "label": "Page non trouvée"
+      }
+    }
+  }
+}
