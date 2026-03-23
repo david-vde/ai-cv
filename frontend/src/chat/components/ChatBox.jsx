@@ -10,6 +10,7 @@ import {useTranslation} from "react-i18next";
 import {getChatHistory} from "../queries/get-history.jsx";
 import {SyncLoader} from "react-spinners";
 import {FaTriangleExclamation} from "react-icons/fa6";
+import { v4 as uuid4 } from 'uuid';
 
 const ChatBox = forwardRef((props, ref) => {
   const { i18n } = useTranslation();
@@ -19,7 +20,7 @@ const ChatBox = forwardRef((props, ref) => {
     const savedId = localStorage.getItem('chat_session_id');
     if (savedId) return savedId;
 
-    const newId = crypto.randomUUID();
+    const newId = uuid4();
     localStorage.setItem('chat_session_id', newId);
     return newId;
   }, []);

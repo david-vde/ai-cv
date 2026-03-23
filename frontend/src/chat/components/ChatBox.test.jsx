@@ -4,8 +4,8 @@ import React, {
 } from "react";
 import {render, screen} from "@testing-library/react";
 import {useConfig as mockedUseConfig} from "../../configs/context/ConfigContext.jsx";
-import ChatBox from "./ChatBox.jsx";
 import _ from "lodash";
+import ChatBox from "./ChatBox.jsx";
 
 const mockSubmitUserMessage = vi.fn();
 
@@ -59,6 +59,10 @@ vi.mock("react-spinners", () => ({
 
 vi.mock("react-icons/fa6", () => ({
   FaTriangleExclamation: () => <div data-testid="fa-triangle-exclamation">FaTriangleExclamation</div>
+}));
+
+vi.mock("uuid", () => ({
+  v4: () => "mocked-uuid"
 }));
 
 function mockUseConfig() {
@@ -213,8 +217,6 @@ describe("ChatBox - useMemo sessionId", () => {
 
   it("generates a new session id and stores it in localStorage when none exists", () => {
     getItemSpy.mockReturnValue(null);
-    const fakeUUID = "fake-uuid-1234";
-    const randomUUIDSpy = vi.spyOn(crypto, "randomUUID").mockReturnValue(fakeUUID);
 
     mockUseState([
       { initialValue: [], setter: vi.fn() },
@@ -224,10 +226,7 @@ describe("ChatBox - useMemo sessionId", () => {
     render(<ChatBox onClickPresetQuestion={() => {}} />);
 
     expect(getItemSpy).toHaveBeenCalledWith("chat_session_id");
-    expect(randomUUIDSpy).toHaveBeenCalled();
-    expect(setItemSpy).toHaveBeenCalledWith("chat_session_id", fakeUUID);
-
-    randomUUIDSpy.mockRestore();
+    expect(setItemSpy).toHaveBeenCalledWith("chat_session_id", "mocked-uuid");
   });
 });
 
