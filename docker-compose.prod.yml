@@ -36,6 +36,8 @@ services:
       - mysql
 
   php_server:
+    environment:
+      - APP_ENV=prod
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
