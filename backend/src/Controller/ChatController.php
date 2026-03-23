@@ -2,16 +2,18 @@
 
 namespace App\Controller;
 
+use App\ChatLogger\ChatLoggerInterface;
 use App\Webhook\QuestionPusherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[AsController]
 readonly class ChatController
 {
-    public function __construct(private QuestionPusherInterface $webhookPusher)
+    public function __construct(private QuestionPusherInterface $webhookPusher, private ChatLoggerInterface $chatLogger)
     {
     }
 
@@ -30,9 +32,29 @@ readonly class ChatController
             $responseArray = $this->webhookPusher->pushTextRequest($question, $sessionId);
             return new JsonResponse($responseArray);
         } catch (\Exception $e) {
-            return new JsonResponse([
+            return new JsonResponse(json_encode([
                 'error' => 'Unable to contact AI agent.'
-            ], 500);
+            ]), 500, [], true);
+        }
+    }
+
+    #[Route('/api/chat-history/{sessionId}', name: 'api_chat_history', methods: ['GET'])]
+    public function getChatHistory(SerializerInterface $serializer, string $sessionId): JsonResponse
+    {
+        try {
+            $chatLogs = $this->chatLogger->history($sessionId);
+
+            $json = $serializer->serialize(
+                $chatLogs,
+                'json',
+                ['groups' => 'chatlog:public']
+            );
+
+            return new JsonResponse($json, 200, [], true);
+        } catch (\Exception) {
+            return new JsonResponse([
+                'error' => 'Unable to retrieve history.'
+            ], 500, [], true);
         }
     }
 }

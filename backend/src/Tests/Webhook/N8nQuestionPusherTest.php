@@ -66,8 +66,8 @@ final class N8nQuestionPusherTest extends TestCase
             ->with(
                 $this->callback(function(string $sender) use ($matcher) {
                     return match ($matcher->numberOfInvocations()) {
-                        1 => $sender === 'webuser',
-                        2 => $sender === 'chatbot',
+                        1 => $sender === 'user',
+                        2 => $sender === 'ai',
                         default => false,
                     };
                 }),

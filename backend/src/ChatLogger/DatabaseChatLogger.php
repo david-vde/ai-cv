@@ -40,4 +40,20 @@ readonly class DatabaseChatLogger implements ChatLoggerInterface
         $this->entityManager->persist($chatLog);
         $this->entityManager->flush();
     }
+
+    /**
+     * @param string $sessionUuid
+     * @param bool $includeErrors
+     * @return array<ChatLog>
+     */
+    public function history(string $sessionUuid, bool $includeErrors = false): array
+    {
+        $criteria = ['session' => new Uuid($sessionUuid)];
+
+        if (!$includeErrors) {
+            $criteria['status'] = ChatLogStatus::SUCCESS;
+        }
+
+        return $this->entityManager->getRepository(ChatLog::class)->findBy($criteria);
+    }
 }

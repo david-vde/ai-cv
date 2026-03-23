@@ -34,7 +34,14 @@ function App() {
       <div className="main">
         <div className="chat-panel">
           <Routes>
-            <Route path="/" element={<ChatBox ref={refChatBox} onClickPresetQuestion={onClickPresetQuestion}/>} />
+            <Route
+              path="/"
+              element={
+                <ChatBox
+                  ref={refChatBox}
+                  onClickPresetQuestion={onClickPresetQuestion}/>
+              }
+            />
             <Route path="/cv" element={<div>CV</div>} />
             <Route path="/career" element={<div>Career</div>} />
             <Route path="*" element={<h2>404 - {t("errors.http.404.label")}</h2>} />

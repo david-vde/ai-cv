@@ -1,7 +1,11 @@
-import React, {useImperativeHandle as mockedUseImperativeHandle} from "react";
+import React, {
+  useImperativeHandle as mockedUseImperativeHandle,
+  useState as mockedUseState
+} from "react";
 import {render, screen} from "@testing-library/react";
 import {useConfig as mockedUseConfig} from "../../configs/context/ConfigContext.jsx";
 import ChatBox from "./ChatBox.jsx";
+import _ from "lodash";
 
 const mockSubmitUserMessage = vi.fn();
 
@@ -18,11 +22,16 @@ vi.mock("react", async () => {
     useImperativeHandle: vi.fn(),
     useMemo: vi.fn((fn) => fn()),
     useRef: vi.fn(() => ({ current: { submitUserMessage: mockSubmitUserMessage } })),
+    useState: vi.fn()
   };
 });
 
 vi.mock("../queries/ask-question.jsx", () => ({
   chatAskQuestion: vi.fn()
+}));
+
+vi.mock("../queries/get-history.jsx", () => ({
+  getChatHistory: vi.fn()
 }));
 
 vi.mock("./PreWrittenQuestions.jsx", () => ({
@@ -44,14 +53,28 @@ vi.mock("react-i18next", () => ({
   })
 }));
 
+vi.mock("react-spinners", () => ({
+  SyncLoader: () => <div data-testid="sync-loader">SyncLoader</div>
+}));
+
+vi.mock("react-icons/fa6", () => ({
+  FaTriangleExclamation: () => <div data-testid="fa-triangle-exclamation">FaTriangleExclamation</div>
+}));
+
 function mockUseConfig() {
-  mockedUseConfig.mockImplementationOnce(() => ({
+  mockedUseConfig.mockImplementation(() => ({
     configs: {
       'contact.firstname': 'John',
       'contact.lastname': 'Doe'
     },
     loading: false
   }));
+}
+
+function mockUseState(states) {
+  _.forEach(states, (state, key) => {
+    mockedUseState.mockImplementationOnce(() => [state.initialValue, state.setter])
+  })
 }
 
 beforeEach(() => {
@@ -61,18 +84,34 @@ beforeEach(() => {
 describe("ChatBox - rendering", () => {
   it("renders DeepChat with history and placeholder props, PreWrittenQuestions, matches snapshot and checks values", () => {
     const ref = React.createRef();
+    mockUseState([
+      { initialValue: [{role: "ai", text: "Hello!"}], setter: vi.fn() },
+      { initialValue: true, setter: vi.fn() }
+    ]);
+
     const { container } = render(<ChatBox ref={ref} onClickPresetQuestion={() => {}} />);
     expect(screen.getByTestId("deep-chat")).toBeInTheDocument();
     expect(screen.getByTestId("prewritten-questions")).toBeInTheDocument();
 
     const historyDiv = screen.getByTestId("history-values");
     expect(historyDiv).toBeInTheDocument();
-    expect(historyDiv.textContent).toBe('[{"role":"ai","text":"chatbot.helloMessage - translated"}]');
+    expect(historyDiv.textContent).toBe('[{"role":"ai","text":"Hello!"}]');
 
     const placeholderDiv = screen.getByTestId("placeholder-value");
     expect(placeholderDiv).toBeInTheDocument();
     expect(placeholderDiv.textContent).toBe("chatbot.placeholder - translated");
     expect(container).toMatchSnapshot();
+  });
+
+  it("renders SyncLoader when historyLoaded is false", () => {
+    mockUseState([
+      { initialValue: [{role: "ai", text: "Hello!"}], setter: vi.fn() },
+      { initialValue: false, setter: vi.fn() }
+    ]);
+    render(<ChatBox onClickPresetQuestion={() => {}} />);
+    const loaderDiv = screen.getByTestId("sync-loader");
+    expect(loaderDiv).toBeInTheDocument();
+    expect(loaderDiv.parentElement).toHaveStyle({ padding: "20px" });
   });
 });
 
@@ -85,7 +124,10 @@ describe("ChatBox - sendPreset imperative handle",  () => {
 
   it("Calls submitUserMessage on refDeepChat when sendPreset is called", () => {
     const ref = React.createRef();
-
+    mockUseState([
+      { initialValue: [{role: "ai", text: "Hello!"}], setter: vi.fn() },
+      { initialValue: true, setter: vi.fn() }
+    ]);
     mockedUseImperativeHandle.mockImplementationOnce((ref, callback) => {
       let {sendPreset} = callback();
       capturedSendPreset = sendPreset;
@@ -101,6 +143,10 @@ describe("ChatBox - sendPreset imperative handle",  () => {
 
 describe("ChatBox - useEffect style injection", () => {
   it("ajoute un élément style dans deepChat.shadowRoot via appendChild", () => {
+    mockUseState([
+      { initialValue: [{role: "ai", text: "Hello!"}], setter: vi.fn() },
+      { initialValue: true, setter: vi.fn() }
+    ]);
     const appendChild = vi.fn();
     const shadowRoot = { appendChild };
     const deepChatEl = { shadowRoot };
@@ -136,3 +182,52 @@ describe("ChatBox - useEffect style injection", () => {
     createElementSpy.mockRestore();
   });
 });
+
+describe("ChatBox - useMemo sessionId", () => {
+  let getItemSpy;
+  let setItemSpy;
+
+  beforeEach(() => {
+    getItemSpy = vi.spyOn(Storage.prototype, "getItem");
+    setItemSpy = vi.spyOn(Storage.prototype, "setItem");
+  });
+
+  afterEach(() => {
+    getItemSpy.mockRestore();
+    setItemSpy.mockRestore();
+  });
+
+  it("returns existing session id from localStorage without generating a new one", () => {
+    getItemSpy.mockReturnValue("existing-session-id");
+
+    mockUseState([
+      { initialValue: [], setter: vi.fn() },
+      { initialValue: true, setter: vi.fn() }
+    ]);
+
+    render(<ChatBox onClickPresetQuestion={() => {}} />);
+
+    expect(getItemSpy).toHaveBeenCalledWith("chat_session_id");
+    expect(setItemSpy).not.toHaveBeenCalledWith("chat_session_id", expect.anything());
+  });
+
+  it("generates a new session id and stores it in localStorage when none exists", () => {
+    getItemSpy.mockReturnValue(null);
+    const fakeUUID = "fake-uuid-1234";
+    const randomUUIDSpy = vi.spyOn(crypto, "randomUUID").mockReturnValue(fakeUUID);
+
+    mockUseState([
+      { initialValue: [], setter: vi.fn() },
+      { initialValue: true, setter: vi.fn() }
+    ]);
+
+    render(<ChatBox onClickPresetQuestion={() => {}} />);
+
+    expect(getItemSpy).toHaveBeenCalledWith("chat_session_id");
+    expect(randomUUIDSpy).toHaveBeenCalled();
+    expect(setItemSpy).toHaveBeenCalledWith("chat_session_id", fakeUUID);
+
+    randomUUIDSpy.mockRestore();
+  });
+});
+

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 const LanguageSelector = () => {
   const { i18n } = useTranslation();
-  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language)
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language.split('-')[0]);
 
   const formatOptionLabel = ({ label, code }) => (
     <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>

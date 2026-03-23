@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ChatLogRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 use App\ChatLogger\ChatLogStatus;
 
@@ -20,9 +21,11 @@ class ChatLog
     private ?Uuid $session = null;
 
     #[ORM\Column(length: 32)]
+    #[Groups(['chatlog:public'])]
     private ?string $sender = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['chatlog:public'])]
     private ?string $message = null;
 
     #[ORM\Column(length: 16, enumType: ChatLogStatus::class)]
@@ -32,10 +35,11 @@ class ChatLog
     private ?string $error = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[Groups(['chatlog:public'])]
+    private ?\DateTimeImmutable $createdAt;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updated_at = null;
+    private ?\DateTimeImmutable $updated_at;
 
     public function __construct()
     {

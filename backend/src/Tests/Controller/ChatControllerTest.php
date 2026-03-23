@@ -2,6 +2,7 @@
 
 namespace App\Tests\Controller;
 
+use App\ChatLogger\ChatLoggerInterface;
 use App\Controller\ChatController;
 use App\Webhook\QuestionPusherInterface;
 use PHPUnit\Framework\MockObject\Exception;
@@ -14,6 +15,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 final class ChatControllerTest extends TestCase
 {
     private (QuestionPusherInterface&MockObject)|null $pusher;
+    private (ChatLoggerInterface&MockObject)|null $logger;
     private ?ChatController $controller;
 
     /**
@@ -23,7 +25,8 @@ final class ChatControllerTest extends TestCase
     protected function setUp(): void
     {
         $this->pusher = $this->createMock(QuestionPusherInterface::class);
-        $this->controller = new ChatController($this->pusher);
+        $this->logger = $this->createMock(ChatLoggerInterface::class);
+        $this->controller = new ChatController($this->pusher, $this->logger);
     }
 
     /**
@@ -33,6 +36,7 @@ final class ChatControllerTest extends TestCase
     {
         $this->pusher = null;
         $this->controller = null;
+        $this->logger = null;
     }
 
     /**
@@ -122,7 +126,6 @@ final class ChatControllerTest extends TestCase
 
         $response = $this->controller->chat($request);
 
-        $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertSame(json_encode(['error' => 'Unable to contact AI agent.']), $response->getContent());
         $this->assertSame(500, $response->getStatusCode());
     }
