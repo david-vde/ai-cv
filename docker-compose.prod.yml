@@ -50,14 +50,10 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
-      args:
-        - VITE_BACKEND_URL=${BACKEND_URL}
     container_name: react_nginx_prod
     restart: always
     ports:
       - "80:80"
-    environment:
-      - VITE_BACKEND_URL=${BACKEND_URL}
 
 volumes:
   n8n_data:
