@@ -38,6 +38,8 @@ services:
   php_server:
     environment:
       - APP_ENV=prod
+      - DATABASE_URL=mysql://${BACKEND_DB_USER}:${BACKEND_DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${BACKEND_DB_NAME}?serverVersion=8.0
+      - CORS_ALLOW_ORIGIN=^https?://(localhost|127\.0\.0\.1|davidvanderelst\.me|13\.37\.87\.70)(:[0-9]+)?$
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
