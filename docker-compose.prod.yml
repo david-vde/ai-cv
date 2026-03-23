@@ -1,0 +1,64 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: n8n_mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${BACKEND_DB_NAME}
+      - MYSQL_USER=${BACKEND_DB_USER}
+      - MYSQL_PASSWORD=${BACKEND_DB_PASSWORD}
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    container_name: n8n_prod
+    restart: always
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    environment:
+      - N8N_HOST=${WEBSITE_DOMAIN}
+      - N8N_PORT=${N8N_PORT}
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=${N8N_WEBHOOK_URL}
+      - GENERIC_TIMEZONE=Europe/Brussels
+      - DB_TYPE=mysqldb
+      - DB_MYSQLDB_DATABASE=${N8N_DB_NAME}
+      - DB_MYSQLDB_HOST=${DB_HOST}
+      - DB_MYSQLDB_PORT=${DB_PORT}
+      - DB_MYSQLDB_USER=${N8N_DB_USER}
+      - DB_MYSQLDB_PASSWORD=${N8N_DB_PASSWORD}
+    depends_on:
+      - mysql
+
+  php_server:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: symfony_php_prod
+    restart: always
+    ports:
+      - "8000:80"
+
+    command: sh -c "a2enmod rewrite && apache2-foreground"
+
+  react_frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        - VITE_BACKEND_URL=${BACKEND_URL}
+    container_name: react_nginx_prod
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      - VITE_BACKEND_URL=${BACKEND_URL}
+
+volumes:
+  n8n_data:
+  mysql_data:
