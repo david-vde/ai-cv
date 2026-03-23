@@ -1,4 +1,20 @@
 services:
+  caddy:
+    image: caddy:latest
+    container_name: caddy_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - react_frontend
+      - php_server
+      - n8n
+
   mysql:
     image: mysql:8.0
     container_name: n8n_mysql
@@ -15,14 +31,14 @@ services:
     image: docker.n8n.io/n8nio/n8n
     container_name: n8n_prod
     restart: always
-    ports:
-      - "5678:5678"
+    expose:
+      - "5678"
     volumes:
       - n8n_data:/home/node/.n8n
     environment:
       - N8N_HOST=${WEBSITE_DOMAIN}
       - N8N_PORT=${N8N_PORT}
-      - N8N_PROTOCOL=http
+      - N8N_PROTOCOL=https
       - NODE_ENV=production
       - WEBHOOK_URL=${N8N_WEBHOOK_URL}
       - GENERIC_TIMEZONE=Europe/Brussels
@@ -39,15 +55,14 @@ services:
     environment:
       - APP_ENV=prod
       - DATABASE_URL=mysql://${BACKEND_DB_USER}:${BACKEND_DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${BACKEND_DB_NAME}?serverVersion=8.0
-      - CORS_ALLOW_ORIGIN=^https?://(localhost|127\.0\.0\.1|davidvanderelst\.me|13\.37\.87\.70)(:[0-9]+)?$
+      - CORS_ALLOW_ORIGIN=^https?://(localhost|127\.0\.0\.1|davidvanderelst\.me)(:[0-9]+)?$
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
     container_name: symfony_php_prod
     restart: always
-    ports:
-      - "8000:80"
-
+    expose:
+      - "80"
     command: sh -c "a2enmod rewrite && apache2-foreground"
 
   react_frontend:
@@ -56,9 +71,11 @@ services:
       dockerfile: Dockerfile.prod
     container_name: react_nginx_prod
     restart: always
-    ports:
-      - "80:80"
+    expose:
+      - "80"
 
 volumes:
   n8n_data:
   mysql_data:
+  caddy_data:
+  caddy_config:
