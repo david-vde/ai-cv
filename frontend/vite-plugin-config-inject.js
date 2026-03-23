@@ -5,7 +5,7 @@ export default function configInjectPlugin() {
     name: 'config-inject',
     async transformIndexHtml(html) {
       return html
-        .replace('{{PAGE_TITLE}}', process.env.CHATBOT_PERSON_NAME + " - Chatbot CV");
+        .replace('{{PAGE_TITLE}}', process.env.VITE_CHATBOT_PERSON_NAME + " - Chatbot CV");
     }
   };
 }
