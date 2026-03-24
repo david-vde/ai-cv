@@ -128,7 +128,8 @@ const ChatBox = forwardRef((props, ref) => {
                           width: "36px",
                           height: "36px",
                           top: "4px",
-                          right: "4px"
+                          right: "4px",
+                          filter: 'brightness(0) saturate(100%) invert(90%) sepia(0%) saturate(5564%) hue-rotate(207deg) brightness(100%) contrast(97%)'
                         }
                       }
                     }

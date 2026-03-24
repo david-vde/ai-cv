@@ -275,10 +275,10 @@ body {
     margin: 0 auto;
     padding: 0 0.7rem 0 2rem;
     display: flex;
+    flex-wrap: wrap;
     border-top: 1px solid #21262d;
     margin-top: 1rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    position: relative;
 
     @media (max-width: 480px) {
       padding: 0 0.5rem;

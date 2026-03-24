@@ -90,6 +90,7 @@ const LanguageSelector = () => {
        className="nav-lang"
        value={selectedOption}
        onChange={onChangeLanguage}
+       isSearchable={false}
      />
   );
 };
