@@ -1,11 +1,13 @@
-import {retrieveConfig} from "./src/configs/queries/retrieve-configs.jsx";
 
-export default function configInjectPlugin() {
+export default function configInjectPlugin(personName) {
   return {
     name: 'config-inject',
-    async transformIndexHtml(html) {
-      return html
-        .replace('{{PAGE_TITLE}}', process.env.VITE_CHATBOT_PERSON_NAME + " - Chatbot CV");
+    transformIndexHtml(html) {
+      const name = personName;
+      return html.replace(
+        '{{PAGE_TITLE}}',
+        (typeof name === "undefined" ? "" : name + " - ") + "Chatbot CV"
+      );
     }
   };
 }
