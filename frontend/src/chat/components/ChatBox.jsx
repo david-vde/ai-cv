@@ -93,7 +93,7 @@ const ChatBox = forwardRef((props, ref) => {
                     borderRadius: "0px",
                     width: "100%",
                     display: "flex",
-                    height: "550px",
+                    height: "clamp(350px, 60vh, 550px)",
                     margin: 0,
                     backgroundColor: "#0d1117"
                   }}
