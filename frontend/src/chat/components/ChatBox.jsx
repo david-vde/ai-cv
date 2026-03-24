@@ -164,7 +164,9 @@ const ChatBox = forwardRef((props, ref) => {
                         bubble: {
                           backgroundColor: "#161b22",
                           color: "#e6edf3",
-                          borderRadius: "5px"
+                          borderRadius: "5px",
+                          maxWidth: "100%",
+                          width: "100%"
                         }
                       },
                       user: {
