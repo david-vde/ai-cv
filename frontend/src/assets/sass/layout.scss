@@ -602,3 +602,45 @@ body {
     margin-left: auto;
   }
 }
+
+.cv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 0;
+  width: 100%;
+  height: 90vh;
+
+  .download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 24px 4px;
+    border-radius: 8px;
+    border: 1px solid #646cff;
+    background-color: #1a1e4a;
+    transition: background-color 0.25s, transform 0.15s;
+    margin-top: 10px;
+
+    a.link {
+      font-size: 0.7rem;
+      text-decoration: none;
+      color: #aaa;
+      cursor: pointer;
+      transition: background-color 0.25s, transform 0.15s;
+    }
+
+    a.link:hover {
+      color: #eee;
+    }
+  }
+
+  .download:hover {
+    background-color: #333bc2;
+    border: 1px solid #a4acff;
+  }
+
+  embed {
+    margin-top: 20px;
+  }
+}

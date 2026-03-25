@@ -57,5 +57,8 @@
         "label": "Page not found"
       }
     }
+  },
+  "cv": {
+    "downloadMyPdfCV": "Download my resume on PDF format"
   }
 }

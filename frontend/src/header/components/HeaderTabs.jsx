@@ -11,7 +11,6 @@ const HeaderTabs = () => {
     <nav className="nav-tabs">
       <div className={"nav-tab" + (location.pathname === "/" ? " active" : "")}><Link to={"/"}>{t("tabs.chatbot.label")}</Link></div>
       <div className={"nav-tab" + (location.pathname === "/cv" ? " active" : "")}><Link to={"/cv"}>{t("tabs.cv.label")}</Link></div>
-      <div className={"nav-tab" + (location.pathname === "/career" ? " active" : "")}><Link to={"/career"}>{t("tabs.career.label")}</Link></div>
       <LanguageSelector />
     </nav>
   );

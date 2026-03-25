@@ -26,7 +26,8 @@ class ConfigFixtures extends Fixture
             'contact.linkedin' => 'https://www.linkedin.com',
             'contact.github' => 'https://github.com',
             'contact.chatbot_github_repository' => 'https://github.com/{repo_name}',
-            'contact.skill_tags' => json_encode($skills)
+            'contact.skill_tags' => json_encode($skills),
+            'contact.cv_url' => 'https://example.com/cv.pdf',
         ];
 
         foreach ($configs as $key => $value) {

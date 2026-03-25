@@ -57,5 +57,8 @@
         "label": "Page non trouvée"
       }
     }
+  },
+  "cv": {
+    "downloadMyPdfCV": "Télécharger mon C.V. au format PDF"
   }
 }

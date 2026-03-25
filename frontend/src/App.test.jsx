@@ -65,10 +65,10 @@ vi.mock("react-router", () => ({
 }));
 
 function mockUseConfig(loading) {
-  mockedUseConfig.mockImplementationOnce(() => ({
+  mockedUseConfig.mockReturnValue({
     configs: {},
     loading: loading
-  }));
+  });
 }
 
 describe("App - onClickPresetQuestion", () => {
@@ -102,11 +102,10 @@ describe("App - rendering", () => {
     const header = container.querySelector('.MockedHeader');
     expect(header).not.toBeNull();
     const routes = Array.from(container.querySelectorAll('.MockedRoute'));
-    expect(routes.length).toBe(4);
+    expect(routes.length).toBe(3);
     const paths = routes.map(route => route.querySelector('.path')?.textContent);
     expect(paths).toContain("/");
     expect(paths).toContain("/cv");
-    expect(paths).toContain("/career");
     expect(paths).toContain("*");
   });
 });

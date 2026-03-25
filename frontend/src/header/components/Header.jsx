@@ -2,7 +2,7 @@ import React from "react";
 import SkillTags from "./SkillTags.jsx";
 import ContactLinks from "./ContactLinks.jsx";
 import LinksPanel from "./LinksPanel.jsx";
-import davidPicture from "../../assets/pictures/david-avatar.png";
+import davidPicture from "../../assets/pictures/david-avatar.jpg";
 import {useConfig} from "../../configs/context/ConfigContext.jsx";
 import HeaderTabs from "./HeaderTabs.jsx";
 import _ from "lodash";

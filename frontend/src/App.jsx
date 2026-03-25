@@ -7,6 +7,7 @@ import {PacmanLoader} from "react-spinners";
 import {useConfig} from "./configs/context/ConfigContext.jsx";
 import {Route, Routes} from "react-router"
 import {useTranslation} from "react-i18next";
+import Cv from "./cv/components/Cv.jsx";
 
 function App() {
   const refChatBox = useRef(null);
@@ -42,8 +43,7 @@ function App() {
                   onClickPresetQuestion={onClickPresetQuestion}/>
               }
             />
-            <Route path="/cv" element={<div>CV</div>} />
-            <Route path="/career" element={<div>Career</div>} />
+            <Route path="/cv" element={<Cv />} />
             <Route path="*" element={<h2>404 - {t("errors.http.404.label")}</h2>} />
           </Routes>
         </div>

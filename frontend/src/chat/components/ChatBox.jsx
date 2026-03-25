@@ -3,7 +3,7 @@ import {DeepChat} from "deep-chat-react";
 import "../../assets/sass/chatbox.scss";
 import {chatAskQuestion} from "../queries/ask-question.jsx";
 import PreWrittenQuestions from "./PreWrittenQuestions.jsx";
-import davidPicture from "../../assets/pictures/david-avatar.png";
+import davidPicture from "../../assets/pictures/david-avatar.jpg";
 import {useConfig} from "../../configs/context/ConfigContext.jsx";
 import _ from "lodash";
 import {useTranslation} from "react-i18next";

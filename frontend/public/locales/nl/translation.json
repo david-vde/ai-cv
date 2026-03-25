@@ -57,5 +57,8 @@
         "label": "Pagina niet gevonden"
       }
     }
+  },
+  "cv": {
+    "downloadMyPdfCV": "Download mijn CV in PDF-formaat"
   }
 }
