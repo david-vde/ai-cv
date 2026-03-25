@@ -26,7 +26,36 @@ git clone https://github.com/<your-username>/AvatarJobFinder.git
 cd AvatarJobFinder
 ```
 
-### 2. Start with Docker Compose (development)
+### 2. Configure environment variables
+
+Create a `.env` file at the project root with the following variables:
+
+```dotenv
+# Domain
+WEBSITE_DOMAIN=yourdomain.com
+
+# n8n (AI workflow engine)
+N8N_PORT=5678
+N8N_WEBHOOK_URL=https://yourdomain.com:5678/
+N8N_DB_NAME=<n8n_db_name>
+N8N_DB_USER=<n8n_user_name>
+N8N_DB_PASSWORD=<n8n_db_password>
+
+# Backend (Symfony API)
+BACKEND_DB_NAME=<backend_db_name>
+BACKEND_DB_USER=<backend_db_user>
+BACKEND_DB_PASSWORD=<backend_db_password>
+BACKEND_URL=https://yourbackenddomain.com/api
+
+# MySQL
+DB_HOST=mysql
+DB_PORT=3306
+DB_ROOT_PASSWORD=<db_root_password>
+```
+
+> ⚠️ **Do not commit the `.env` file.** It contains sensitive credentials. 
+
+### 3. Start with Docker Compose (development)
 
 ```bash
 docker compose up -d
@@ -41,7 +70,7 @@ This will start:
 | n8n           | http://localhost:5678        |
 | MySQL         | localhost:3306               |
 
-### 3. Start with Docker Compose (production)
+### 4. Start with Docker Compose (production)
 
 ```bash
 docker compose -f docker-compose.prod.yml up -d
@@ -53,9 +82,6 @@ docker compose -f docker-compose.prod.yml up -d
 AvatarJobFinder/
 ├── frontend/          # React 19 + Vite application
 ├── backend/           # Symfony 7.4 API
-├── n8n/               # n8n workflow export (AI agent)
-├── cmd/               # Utility scripts (Docker, fixtures, etc.)
-├── preprompt/         # AI prompt templates & notes
 ├── docker-compose.yml
 └── docker-compose.prod.yml
 ```
