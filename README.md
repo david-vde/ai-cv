@@ -76,12 +76,77 @@ This will start:
 docker compose -f docker-compose.prod.yml up -d
 ```
 
+### 5. Configure the n8n AI Agent (System Prompt)
+
+After importing the workflow from `n8n/n8n.chatbot.workflow.json` into your n8n instance, you need to configure the **AI Agent** node with your own system prompt.
+
+Open the **AI Agent** node and replace the placeholder `systemMessage` with your personalized prompt. A well-crafted system prompt is **the key** to making your avatar accurate and useful for recruiters.
+
+Your prompt should include the following sections, written in **Markdown format** for well-structured responses:
+
+#### 📇 Identity & Contact Info
+
+Provide everything a recruiter needs to reach you:
+
+- First name, Last name
+- Phone number & Email
+- LinkedIn, GitHub / Portfolio URLs
+- Location, mobility & remote preferences
+
+#### 💼 Professional Experience
+
+Describe **each position in detail**:
+
+- Job title & Company name
+- Start date → End date
+- Tech stack used
+- Key responsibilities and achievements
+
+> 💡 The more detail you provide, the better the AI can answer specific questions about your background.
+
+#### 🎓 Education & Certifications
+
+List your degrees, training programs, and certifications with dates.
+
+#### 🛠️ Skills
+
+Group your skills by category:
+
+- **Frontend:** React, Vue.js, TypeScript…
+- **Backend:** Node.js, PHP/Symfony, Python…
+- **DevOps:** Docker, CI/CD, AWS…
+- **Soft skills:** Team leadership, Agile/Scrum…
+
+#### 🤖 Behavior & Response Guidelines
+
+Tell the LLM **how** it should behave:
+
+- Answer in **first person** as if it is you
+- Use **Markdown formatting**: headings (`##`, `###`), bullet points, **bold**, sub-points
+- Stay professional but friendly
+- Be honest when information is missing
+- Give concrete examples from your experience for technical questions
+
+#### 💬 Sample Q&A
+
+Provide example questions with ideal answers so the LLM learns your tone and style:
+
+| Question | Answer example |
+|---|---|
+| *Can you tell me about yourself?* | I'm John, a Senior Fullstack Developer with 7 years of experience… |
+| *What is your expected salary?* | My range is 55k€–65k€ gross/year depending on the package. |
+| *Are you available?* | Yes, with a 1-month notice period. |
+| *What are your strengths?* | Versatility across the stack, autonomy, and team spirit. |
+
+> ⚠️ **Don't forget to also configure your OpenAI credentials** in the *OpenAI Chat Model* node — the workflow ships without credentials for security reasons.
+
 ## Project Structure
 
 ```
 AvatarJobFinder/
 ├── frontend/          # React 19 + Vite application
 ├── backend/           # Symfony 7.4 API
+├── n8n/               # n8n workflow (AI chatbot agent)
 ├── docker-compose.yml
 └── docker-compose.prod.yml
 ```
