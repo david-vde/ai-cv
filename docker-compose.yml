@@ -8,10 +8,10 @@ services:
     container_name: n8n_mysql
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=root_password_secret
-      - MYSQL_DATABASE=n8n_db
-      - MYSQL_USER=dbuser
-      - MYSQL_PASSWORD=n8n_password
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${BACKEND_DB_NAME}
+      - MYSQL_USER=${BACKEND_DB_USER}
+      - MYSQL_PASSWORD=${BACKEND_DB_PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
@@ -26,18 +26,18 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
     environment:
-      - N8N_HOST=localhost
-      - N8N_PORT=5678
-      - N8N_PROTOCOL=http
+      - N8N_HOST=${WEBSITE_DOMAIN}
+      - N8N_PORT=${N8N_PORT}
+      - N8N_PROTOCOL=https
       - NODE_ENV=production
-      - WEBHOOK_URL=http://localhost:5678/
+      - WEBHOOK_URL=${N8N_WEBHOOK_URL}
       - GENERIC_TIMEZONE=Europe/Brussels
       - DB_TYPE=mysqldb
-      - DB_MYSQLDB_DATABASE=n8n_db
-      - DB_MYSQLDB_HOST=mysql
-      - DB_MYSQLDB_PORT=3306
-      - DB_MYSQLDB_USER=dbuser
-      - DB_MYSQLDB_PASSWORD=n8n_password
+      - DB_MYSQLDB_DATABASE=${N8N_DB_NAME}
+      - DB_MYSQLDB_HOST=${DB_HOST}
+      - DB_MYSQLDB_PORT=${DB_PORT}
+      - DB_MYSQLDB_USER=${N8N_DB_USER}
+      - DB_MYSQLDB_PASSWORD=${N8N_DB_PASSWORD}
     depends_on:
       - mysql
 
