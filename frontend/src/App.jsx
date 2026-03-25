@@ -8,6 +8,7 @@ import {useConfig} from "./configs/context/ConfigContext.jsx";
 import {Route, Routes} from "react-router"
 import {useTranslation} from "react-i18next";
 import Cv from "./cv/components/Cv.jsx";
+import Footer from "./footer/components/Footer.jsx";
 
 function App() {
   const refChatBox = useRef(null);
@@ -48,6 +49,8 @@ function App() {
           </Routes>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

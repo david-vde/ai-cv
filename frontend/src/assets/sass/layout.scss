@@ -644,3 +644,35 @@ body {
     margin-top: 20px;
   }
 }
+
+/* FOOTER */
+.footer {
+  border-top: 1px solid #21262d;
+  padding: 1.5rem 0;
+  margin-top: auto;
+  text-align: center;
+
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .footer-hosting {
+    font-size: 0.8rem;
+    color: #8b949e;
+
+    strong {
+      color: #c9d1d9;
+    }
+  }
+
+  .footer-credits {
+    font-size: 0.7rem;
+    color: #484f58;
+    font-style: italic;
+  }
+}

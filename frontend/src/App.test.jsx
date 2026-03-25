@@ -38,6 +38,13 @@ vi.mock("./header/components/Header.jsx", () => ({
   }
 }));
 
+vi.mock("./footer/components/Footer.jsx", () => ({
+  default: function MockedFooter() {
+    return <div className="MockedFooter">MockedFooter</div>;
+  }
+}));
+
+
 vi.mock("react-spinners", () => ({
   PacmanLoader: () => <div className="MockedPacmanLoader" />
 }));
@@ -101,6 +108,8 @@ describe("App - rendering", () => {
     const { container } = render(<App />);
     const header = container.querySelector('.MockedHeader');
     expect(header).not.toBeNull();
+    const footer = container.querySelector('.MockedFooter');
+    expect(footer).not.toBeNull();
     const routes = Array.from(container.querySelectorAll('.MockedRoute'));
     expect(routes.length).toBe(3);
     const paths = routes.map(route => route.querySelector('.path')?.textContent);

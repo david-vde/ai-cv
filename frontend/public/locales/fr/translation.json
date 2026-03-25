@@ -60,5 +60,9 @@
   },
   "cv": {
     "downloadMyPdfCV": "Télécharger mon C.V. au format PDF"
+  },
+  "footer": {
+    "hosting": "Hébergé sur <strong>Amazon Web Services</strong> (Lightsail)",
+    "credits": "Projet personnel — chatbot IA développé et déployé en autonomie"
   }
 }

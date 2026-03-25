@@ -101,6 +101,7 @@ const ChatBox = forwardRef((props, ref) => {
                     placeholder: {
                       text: t("chatbot.placeholder")
                     },
+                    enterKeySends: true,
                     styles: {
                       container: {
                         flex: "1",

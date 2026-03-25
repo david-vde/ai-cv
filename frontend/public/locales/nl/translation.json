@@ -60,5 +60,9 @@
   },
   "cv": {
     "downloadMyPdfCV": "Download mijn CV in PDF-formaat"
+  },
+  "footer": {
+    "hosting": "Gehost op <strong>Amazon Web Services</strong> (Lightsail)",
+    "credits": "Persoonlijk project — AI-chatbot zelfstandig ontwikkeld en geïmplementeerd"
   }
 }

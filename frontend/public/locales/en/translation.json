@@ -60,5 +60,9 @@
   },
   "cv": {
     "downloadMyPdfCV": "Download my resume on PDF format"
+  },
+  "footer": {
+    "hosting": "Hosted on <strong>Amazon Web Services</strong> (Lightsail)",
+    "credits": "Personal project — AI chatbot developed and deployed independently"
   }
 }
