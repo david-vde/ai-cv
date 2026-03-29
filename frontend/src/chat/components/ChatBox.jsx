@@ -1,7 +1,7 @@
-import React, {forwardRef, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
+import React, {forwardRef, useEffect, useImperativeHandle, useRef, useState} from "react";
 import {DeepChat} from "deep-chat-react";
 import "../../assets/sass/chatbox.scss";
-import {chatAskQuestion} from "../queries/ask-question.jsx";
+import {chatAskQuestion, voiceChatAskQuestion} from "../queries/ask-question.jsx";
 import PreWrittenQuestions from "./PreWrittenQuestions.jsx";
 import davidPicture from "../../assets/pictures/david-avatar.jpg";
 import {useConfig} from "../../configs/context/ConfigContext.jsx";
@@ -9,34 +9,30 @@ import _ from "lodash";
 import {useTranslation} from "react-i18next";
 import {getChatHistory} from "../queries/get-history.jsx";
 import {SyncLoader} from "react-spinners";
-import {FaTriangleExclamation} from "react-icons/fa6";
-import { v4 as uuid4 } from 'uuid';
+import {FaRotateLeft, FaTriangleExclamation} from "react-icons/fa6";
+import {getChatBotSessionId, initNewChatBotSession} from "../services/chatBotSession.js";
 
 const ChatBox = forwardRef((props, ref) => {
   const { i18n } = useTranslation();
-
+  const [sessionId, setSessionId] = useState(getChatBotSessionId());
   const {onClickPresetQuestion} = props;
-  const sessionId = useMemo(() => {
-    const savedId = localStorage.getItem('chat_session_id');
-    if (savedId) return savedId;
 
-    const newId = uuid4();
-    localStorage.setItem('chat_session_id', newId);
-    return newId;
-  }, []);
   const refDeepChat = useRef(null)
   const {configs} = useConfig();
   const [history, setHistory] = useState([])
   const [historyLoaded, setHistoryLoaded] = useState(false)
   const { t } = useTranslation();
 
-  // Small hack to modify the border radius in the Shadow DOM of DeepChat, since the library doesn't allow to customize it directly
+  // Small hack to modify the border radius in the Shadow DOM of DeepChat, since the library doesn't allow customizing it directly
   useEffect(() => {
     const deepChat = document.querySelector('deep-chat');
     if (!deepChat?.shadowRoot) return;
 
     const style = document.createElement('style');
-    style.textContent = `img { border-radius: 50% !important; padding-top: 0 !important; }`;
+    style.textContent = `
+      img { border-radius: 50% !important; padding-top: 0 !important; }
+    `;
+
     deepChat.shadowRoot.appendChild(style);
   }, []);
 
@@ -57,7 +53,7 @@ const ChatBox = forwardRef((props, ref) => {
       setHistory(newHistory);
       setHistoryLoaded(true);
     })()
-  }, [sessionId, i18n]);
+  }, [i18n]);
 
   useImperativeHandle(ref, () => ({
     sendPreset: (text) => {
@@ -67,6 +63,10 @@ const ChatBox = forwardRef((props, ref) => {
     }
   }))
 
+  const onClickResetSession = () => {
+    setSessionId(initNewChatBotSession());
+  }
+
   const personName = _.get(configs, ['contact.firstname']) + " " + _.get(configs, ['contact.lastname']);
 
   return (
@@ -74,7 +74,7 @@ const ChatBox = forwardRef((props, ref) => {
       <div className="chat-header">
         <div className="chat-dot"></div>
         <div className="chat-header-title">{ t("chatbot.virtualAvatar") } — {personName}</div>
-        <div className="chat-header-sub" id="chat-status">{ t("chatbot.status.online") }</div>
+        <div className="chat-header-reset" onClick={onClickResetSession}>{<FaRotateLeft title={t("chatbot.resetChat")}/>}</div>
       </div>
       <div className="chat-box-container">
         {
@@ -88,6 +88,18 @@ const ChatBox = forwardRef((props, ref) => {
                 <DeepChat
                   ref={refDeepChat}
                   history={history}
+                  microphone={{
+                    files: { maxNumberOfFiles: 1 },
+                    button: {
+                      default: {
+                        container: {
+                          default: {
+
+                          }
+                        }
+                      }
+                    }
+                  }}
                   style={{
                     border: "none",
                     borderRadius: "0px",
@@ -101,19 +113,16 @@ const ChatBox = forwardRef((props, ref) => {
                     placeholder: {
                       text: t("chatbot.placeholder")
                     },
-                    enterKeySends: true,
                     styles: {
                       container: {
-                        flex: "1",
-                        margin: 0,
+                        margin: "40px 0 10px",
                         backgroundColor: "#0d1117",
                         borderTop: "1px solid #21262d",
                         borderRadius: "0px",
                         fontFamily: "'DM Sans', sans-serif",
                         fontSize: "14px",
-                        padding: "9px 14px",
+                        padding: "5px 14px 5px",
                         transition: "border-color 0.15s",
-                        display: "flex",
                         color: "#e6edf3",
                         outline: "none"
                       },
@@ -128,7 +137,7 @@ const ChatBox = forwardRef((props, ref) => {
                         default: {
                           width: "36px",
                           height: "36px",
-                          top: "4px",
+                          top: "43px",
                           right: "4px",
                           filter: 'brightness(0) saturate(100%) invert(90%) sepia(0%) saturate(5564%) hue-rotate(207deg) brightness(100%) contrast(97%)'
                         }
@@ -189,8 +198,15 @@ const ChatBox = forwardRef((props, ref) => {
                   }}
                   connect={{
                     handler: async (body, signals) => {
-                      const answer = await chatAskQuestion(body, sessionId);
-                      signals.onResponse({text: answer});
+                      let answer;
+
+                      if (body instanceof FormData) {
+                        answer = await voiceChatAskQuestion(body, sessionId);
+                      } else {
+                        answer = await chatAskQuestion(body, sessionId);
+                      }
+
+                      await signals.onResponse({text: answer});
                     }
                   }}
                 />

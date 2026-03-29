@@ -1,6 +1,12 @@
 FROM php:8.3-apache
 
-RUN docker-php-ext-install pdo pdo_mysql
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libzip-dev \
+    zip \
+    && docker-php-ext-install zip pdo pdo_mysql \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 

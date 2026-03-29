@@ -4,6 +4,7 @@ import React, {
 } from "react";
 import {render, screen} from "@testing-library/react";
 import {useConfig as mockedUseConfig} from "../../configs/context/ConfigContext.jsx";
+import {getChatBotSessionId as mockedGetChatBotSessionId, initNewChatBotSession as mockedInitNewChatBotSession} from "../services/chatBotSession.js";
 import _ from "lodash";
 import ChatBox from "./ChatBox.jsx";
 
@@ -13,6 +14,11 @@ vi.mock('../../configs/context/ConfigContext', () => ({
     useConfig: vi.fn() }
 ));
 
+vi.mock("../services/chatBotSession.js", () => ({
+  getChatBotSessionId: vi.fn(),
+  initNewChatBotSession: vi.fn()
+}));
+
 vi.mock("react", async () => {
   const actual = await vi.importActual("react");
   return {
@@ -20,7 +26,6 @@ vi.mock("react", async () => {
     forwardRef: vi.fn(Component => Component),
     useEffect: vi.fn((fn) => fn()),
     useImperativeHandle: vi.fn(),
-    useMemo: vi.fn((fn) => fn()),
     useRef: vi.fn(() => ({ current: { submitUserMessage: mockSubmitUserMessage } })),
     useState: vi.fn()
   };
@@ -49,7 +54,8 @@ vi.mock("deep-chat-react", () => ({
 
 vi.mock("react-i18next", () => ({
   useTranslation: () => ({
-    t: (key) => key + " - translated"
+    t: (key) => key + " - translated",
+    i18n: {}
   })
 }));
 
@@ -58,11 +64,8 @@ vi.mock("react-spinners", () => ({
 }));
 
 vi.mock("react-icons/fa6", () => ({
-  FaTriangleExclamation: () => <div data-testid="fa-triangle-exclamation">FaTriangleExclamation</div>
-}));
-
-vi.mock("uuid", () => ({
-  v4: () => "mocked-uuid"
+  FaTriangleExclamation: () => <div data-testid="fa-triangle-exclamation">FaTriangleExclamation</div>,
+  FaRotateLeft: () => <div data-testid="fa-rotate-left">FaRotateLeft</div>
 }));
 
 function mockUseConfig() {
@@ -83,12 +86,15 @@ function mockUseState(states) {
 
 beforeEach(() => {
   mockUseConfig();
+  mockedGetChatBotSessionId.mockReturnValue("existing-session-id");
+  mockedInitNewChatBotSession.mockReturnValue("new-session-id");
 });
 
 describe("ChatBox - rendering", () => {
   it("renders DeepChat with history and placeholder props, PreWrittenQuestions, matches snapshot and checks values", () => {
     const ref = React.createRef();
     mockUseState([
+      { initialValue: "existing-session-id", setter: vi.fn() },
       { initialValue: [{role: "ai", text: "Hello!"}], setter: vi.fn() },
       { initialValue: true, setter: vi.fn() }
     ]);
@@ -109,6 +115,7 @@ describe("ChatBox - rendering", () => {
 
   it("renders SyncLoader when historyLoaded is false", () => {
     mockUseState([
+      { initialValue: "existing-session-id", setter: vi.fn() },
       { initialValue: [{role: "ai", text: "Hello!"}], setter: vi.fn() },
       { initialValue: false, setter: vi.fn() }
     ]);
@@ -129,6 +136,7 @@ describe("ChatBox - sendPreset imperative handle",  () => {
   it("Calls submitUserMessage on refDeepChat when sendPreset is called", () => {
     const ref = React.createRef();
     mockUseState([
+      { initialValue: "existing-session-id", setter: vi.fn() },
       { initialValue: [{role: "ai", text: "Hello!"}], setter: vi.fn() },
       { initialValue: true, setter: vi.fn() }
     ]);
@@ -146,8 +154,9 @@ describe("ChatBox - sendPreset imperative handle",  () => {
 });
 
 describe("ChatBox - useEffect style injection", () => {
-  it("ajoute un élément style dans deepChat.shadowRoot via appendChild", () => {
+  it("adds a style element to deepChat.shadowRoot via appendChild", () => {
     mockUseState([
+      { initialValue: "existing-session-id", setter: vi.fn() },
       { initialValue: [{role: "ai", text: "Hello!"}], setter: vi.fn() },
       { initialValue: true, setter: vi.fn() }
     ]);
@@ -170,63 +179,61 @@ describe("ChatBox - useEffect style injection", () => {
   });
 
   it("Do not add style element if deepChat.shadowRoot is undefined", () => {
-    const deepChatEl = {};
+    mockUseState([
+      { initialValue: "existing-session-id", setter: vi.fn() },
+      { initialValue: [{role: "ai", text: "Hello!"}], setter: vi.fn() },
+      { initialValue: true, setter: vi.fn() }
+    ]);
+    const deepChatEl = { shadowRoot: undefined };
     const originalQuerySelector = document.querySelector;
     document.querySelector = vi.fn(() => deepChatEl);
 
-    const createElementSpy = vi.spyOn(document, "createElement");
+    render(<ChatBox onClickPresetQuestion={() => {}} />);
 
-    expect(() => {
-      render(<ChatBox onClickPresetQuestion={() => {}} />);
-    });
-
-    expect(createElementSpy).not.toHaveBeenCalledWith("style");
+    expect(document.querySelector).toHaveBeenCalledWith("deep-chat");
+    expect(deepChatEl.shadowRoot).toBeUndefined();
 
     document.querySelector = originalQuerySelector;
-    createElementSpy.mockRestore();
   });
 });
 
-describe("ChatBox - useMemo sessionId", () => {
-  let getItemSpy;
-  let setItemSpy;
-
+describe("ChatBox - useState sessionId", () => {
   beforeEach(() => {
-    getItemSpy = vi.spyOn(Storage.prototype, "getItem");
-    setItemSpy = vi.spyOn(Storage.prototype, "setItem");
+    mockedGetChatBotSessionId.mockClear();
+    mockedInitNewChatBotSession.mockClear();
   });
 
-  afterEach(() => {
-    getItemSpy.mockRestore();
-    setItemSpy.mockRestore();
-  });
-
-  it("returns existing session id from localStorage without generating a new one", () => {
-    getItemSpy.mockReturnValue("existing-session-id");
+  it("calls getChatBotSessionId to initialize sessionId state", () => {
+    mockedGetChatBotSessionId.mockReturnValue("existing-session-id");
 
     mockUseState([
+      { initialValue: "existing-session-id", setter: vi.fn() },
       { initialValue: [], setter: vi.fn() },
       { initialValue: true, setter: vi.fn() }
     ]);
 
     render(<ChatBox onClickPresetQuestion={() => {}} />);
 
-    expect(getItemSpy).toHaveBeenCalledWith("chat_session_id");
-    expect(setItemSpy).not.toHaveBeenCalledWith("chat_session_id", expect.anything());
+    expect(mockedGetChatBotSessionId).toHaveBeenCalled();
   });
 
-  it("generates a new session id and stores it in localStorage when none exists", () => {
-    getItemSpy.mockReturnValue(null);
+  it("calls initNewChatBotSession and updates sessionId when reset is triggered", () => {
+    const setSessionId = vi.fn();
+    mockedInitNewChatBotSession.mockReturnValue("new-session-id");
 
     mockUseState([
+      { initialValue: "existing-session-id", setter: setSessionId },
       { initialValue: [], setter: vi.fn() },
       { initialValue: true, setter: vi.fn() }
     ]);
 
     render(<ChatBox onClickPresetQuestion={() => {}} />);
 
-    expect(getItemSpy).toHaveBeenCalledWith("chat_session_id");
-    expect(setItemSpy).toHaveBeenCalledWith("chat_session_id", "mocked-uuid");
+    const resetButton = screen.getByTestId("fa-rotate-left");
+    resetButton.parentElement.click();
+
+    expect(mockedInitNewChatBotSession).toHaveBeenCalled();
+    expect(setSessionId).toHaveBeenCalledWith("new-session-id");
   });
 });
 

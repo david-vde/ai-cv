@@ -396,11 +396,11 @@ body {
       }
     }
 
-    &-sub {
+    &-reset {
       font-size: 12px;
-      color: #8b949e;
       margin-left: auto;
       white-space: nowrap;
+      cursor: pointer;
 
       @media (max-width: 480px) {
         font-size: 11px;

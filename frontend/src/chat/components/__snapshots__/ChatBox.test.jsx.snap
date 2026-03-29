@@ -16,10 +16,13 @@ exports[`ChatBox - rendering > renders DeepChat with history and placeholder pro
       John Doe
     </div>
     <div
-      class="chat-header-sub"
-      id="chat-status"
+      class="chat-header-reset"
     >
-      chatbot.status.online - translated
+      <div
+        data-testid="fa-rotate-left"
+      >
+        FaRotateLeft
+      </div>
     </div>
   </div>
   <div

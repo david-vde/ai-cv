@@ -7,7 +7,8 @@
       "offline": "Hors ligne"
     },
     "messageLogWarning": "Les conversations sont anonymes, enregistrées et consultées uniquement par {{personName}}.",
-    "placeholder": "Posez-moi vos questions!"
+    "placeholder": "Posez-moi vos questions!",
+    "resetChat": "Réinitialiser la discussion"
   },
   "question": {
     "preWritten": {

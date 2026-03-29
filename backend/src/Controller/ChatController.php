@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\ChatLogger\ChatLoggerInterface;
 use App\Webhook\QuestionPusherInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
@@ -30,6 +31,26 @@ readonly class ChatController
 
         try {
             $responseArray = $this->webhookPusher->pushTextRequest($question, $sessionId);
+            return new JsonResponse($responseArray);
+        } catch (\Exception $e) {
+            return new JsonResponse(json_encode([
+                'error' => 'Unable to contact AI agent.'
+            ]), 500, [], true);
+        }
+    }
+
+    #[Route('/api/voice-chat', name: 'api_voice_chat', methods: ['POST'])]
+    public function voiceChat(Request $request): JsonResponse
+    {
+        $audioQuestion = $request->files->get('files');
+        $sessionId = $request->request->get('sessionId');
+
+        if (!$audioQuestion instanceof UploadedFile) {
+            return new JsonResponse(['error' => 'Empty voice question is not allowed.'], 400);
+        }
+
+        try {
+            $responseArray = $this->webhookPusher->pushVoiceRequest($audioQuestion, $sessionId);
             return new JsonResponse($responseArray);
         } catch (\Exception $e) {
             return new JsonResponse(json_encode([

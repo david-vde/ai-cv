@@ -8,6 +8,7 @@ use App\Webhook\QuestionPusherInterface;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -125,6 +126,69 @@ final class ChatControllerTest extends TestCase
             ->willThrowException(new \Exception('Some exception'));
 
         $response = $this->controller->chat($request);
+
+        $this->assertSame(json_encode(['error' => 'Unable to contact AI agent.']), $response->getContent());
+        $this->assertSame(500, $response->getStatusCode());
+    }
+
+    /**
+     * @return void
+     * @throws Exception
+     */
+    public function testVoiceChatReturnsResponseArrayOnSuccess(): void
+    {
+        $sessionId = 'session_test';
+
+        $uploadedFile = $this->createMock(UploadedFile::class);
+
+        $request = new Request([], ['sessionId' => $sessionId], [], [], ['files' => $uploadedFile]);
+        $request->files->set('files', $uploadedFile);
+
+        $expectedResponse = ['answer' => 'Voice response'];
+        $this->pusher->expects($this->once())
+            ->method('pushVoiceRequest')
+            ->with($uploadedFile, $sessionId)
+            ->willReturn($expectedResponse);
+
+        $response = $this->controller->voiceChat($request);
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertSame(json_encode($expectedResponse), $response->getContent());
+    }
+
+    /**
+     * @return void
+     */
+    public function testVoiceChatReturnsErrorOnMissingFile(): void
+    {
+        $request = new Request([], ['sessionId' => 'session_test']);
+
+        $response = $this->controller->voiceChat($request);
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertSame(json_encode(['error' => 'Empty voice question is not allowed.']), $response->getContent());
+        $this->assertSame(400, $response->getStatusCode());
+    }
+
+    /**
+     * @return void
+     * @throws Exception
+     */
+    public function testVoiceChatReturnsErrorOnException(): void
+    {
+        $sessionId = 'session_test';
+
+        $uploadedFile = $this->createMock(UploadedFile::class);
+
+        $request = new Request([], ['sessionId' => $sessionId]);
+        $request->files->set('files', $uploadedFile);
+
+        $this->pusher->expects($this->once())
+            ->method('pushVoiceRequest')
+            ->with($uploadedFile, $sessionId)
+            ->willThrowException(new \Exception('Some exception'));
+
+        $response = $this->controller->voiceChat($request);
 
         $this->assertSame(json_encode(['error' => 'Unable to contact AI agent.']), $response->getContent());
         $this->assertSame(500, $response->getStatusCode());

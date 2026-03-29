@@ -7,7 +7,8 @@
       "offline": "Offline"
     },
     "messageLogWarning": "Conversations are anonymous, recorded and only accessible by {{personName}}.",
-    "placeholder": "Ask me your questions!"
+    "placeholder": "Ask me your questions!",
+    "resetChat": "Reset chat"
   },
   "question": {
     "preWritten": {
