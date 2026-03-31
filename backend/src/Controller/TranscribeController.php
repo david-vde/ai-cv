@@ -25,7 +25,16 @@ readonly class TranscribeController
         $audioFile = $request->files->get('files');
 
         if (!$audioFile instanceof UploadedFile) {
+            $audioFile = $request->files->get('file');
+        }
+
+        if (!$audioFile instanceof UploadedFile) {
             return new JsonResponse(['error' => 'Missing audio file.'], 400);
+        }
+
+        if (!$audioFile instanceof UploadedFile && $request->files->all()) {
+            $allFiles = $request->files->all();
+            $audioFile = reset($allFiles);
         }
 
         try {
