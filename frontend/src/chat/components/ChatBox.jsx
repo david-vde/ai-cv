@@ -209,16 +209,11 @@ const ChatBox = forwardRef((props, ref) => {
                       let answer;
 
                       if (body instanceof FormData) {
+                        await new Promise(resolve => setTimeout(resolve, 300));
 
-
-
-
-                        // --- SÉCURITÉ ANTI-COURSE ---
                         const audioFile = body.get('files');
 
                         if (!audioFile || audioFile.size === 0) {
-                          console.warn("Audio non prêt, tentative de récupération...");
-                          // Optionnel : tu peux tenter un petit delay de 200ms ici si nécessaire
                           await new Promise(resolve => setTimeout(resolve, 200));
                         }
 
