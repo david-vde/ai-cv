@@ -22,7 +22,7 @@ readonly class TranscribeController
     #[Route('/api/audio-transcribe', name: 'api_audio_transcribe', methods: ['POST'])]
     public function audioTranscribe(Request $request): JsonResponse
     {
-        file_put_contents('php://stderr', "CONTENU REQUETE: " . $request->getContent() . "\n");
+        file_put_contents('/tmp/debug.log', "Ma variable : " . print_r($request->getContent(), true), FILE_APPEND);
 
         $audioFile = $request->files->get('files');
 
