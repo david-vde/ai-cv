@@ -210,12 +210,12 @@ const ChatBox = forwardRef((props, ref) => {
 
                       if (body instanceof FormData) {
                         const messages = refDeepChat.current.getMessages();
-                        const lastIndex = messages.length - 1;
-                        refDeepChat.current.updateMessage({
-                          role: "user",
-                          html: '',
-                          files: []
-                        }, lastIndex);
+                        //const lastIndex = messages.length - 1;
+                        // refDeepChat.current.updateMessage({
+                        //   role: "user",
+                        //   html: '',
+                        //   files: []
+                        // }, lastIndex);
 
                         const transcribedText = await transcribeAudio(body);
                         const newUserMessage = onAudioTranscribed(transcribedText);
