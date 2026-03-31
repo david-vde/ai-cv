@@ -16,7 +16,6 @@ export const transcribeAudio = async (formData) => {
   const json = await response.json();
 
   if (!response.ok) {
-    alert('Oops :'  + json.error);
     throw new Error(json.error || 'Failed to fetch answer');
   }
 
