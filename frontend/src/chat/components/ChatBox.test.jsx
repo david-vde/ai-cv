@@ -81,6 +81,29 @@ vi.mock("../queries/audio-transcribe.jsx", () => ({
   transcribeAudio: vi.fn()
 }));
 
+const mockGetRecordedAudioBlob = vi.fn();
+
+vi.mock("../hooks/useAudioRecordingFix.js", () => ({
+  useAudioRecordingFix: () => ({ getRecordedAudioBlob: mockGetRecordedAudioBlob }),
+  formDataHasEmptyFile: (fd) => {
+    for (const [, value] of fd.entries()) {
+      if (value instanceof File && value.size === 0) return true;
+    }
+    return false;
+  },
+  rebuildFormDataWithBlob: (fd, blob) => {
+    const newFd = new FormData();
+    for (const [key, value] of fd.entries()) {
+      if (value instanceof File && value.size === 0) {
+        newFd.append(key, new File([blob], value.name || "recording.wav", { type: blob.type }));
+      } else {
+        newFd.append(key, value);
+      }
+    }
+    return newFd;
+  }
+}));
+
 function mockUseConfig() {
   mockedUseConfig.mockImplementation(() => ({
     configs: {
@@ -258,6 +281,7 @@ describe("ChatBox - connect handler (onAudioTranscribed & chatAskQuestion)", () 
     mockAddMessage.mockClear();
     mockGetMessages.mockClear();
     mockUpdateMessage.mockClear();
+    mockGetRecordedAudioBlob.mockClear();
   });
 
   it("calls transcribeAudio, onAudioTranscribed and chatAskQuestion with transcribed=true when body is FormData", async () => {
@@ -318,5 +342,66 @@ describe("ChatBox - connect handler (onAudioTranscribed & chatAskQuestion)", () 
     expect(mockAddMessage).not.toHaveBeenCalled();
     expect(mockedChatAskQuestion).toHaveBeenCalledWith(body, "existing-session-id");
     expect(mockSignals.onResponse).toHaveBeenCalledWith({ text: "AI text response" });
+  });
+
+  it("waits for recorded audio blob and rebuilds FormData when file is empty (race condition)", async () => {
+    mockUseState([
+      { initialValue: "existing-session-id", setter: vi.fn() },
+      { initialValue: [{role: "ai", text: "Hello!"}], setter: vi.fn() },
+      { initialValue: true, setter: vi.fn() }
+    ]);
+
+    const realAudioBlob = new Blob(["real-audio-data"], { type: "audio/wav" });
+    mockGetRecordedAudioBlob.mockResolvedValue(realAudioBlob);
+    mockGetMessages.mockReturnValue([
+      { role: "user", html: "<audio>", files: ["audio.wav"] }
+    ]);
+    mockedTranscribeAudio.mockResolvedValue("transcribed from recovered audio");
+    mockedChatAskQuestion.mockResolvedValue("AI response");
+
+    render(<ChatBox onClickPresetQuestion={() => {}} />);
+
+    const connectProp = mockCaptureConnect.mock.calls[0][0];
+    const mockSignals = { onResponse: vi.fn() };
+    const emptyFormData = new FormData();
+    emptyFormData.append("files", new File([], ""));
+
+    await connectProp.handler(emptyFormData, mockSignals);
+
+    expect(mockGetRecordedAudioBlob).toHaveBeenCalled();
+    expect(mockedTranscribeAudio).toHaveBeenCalled();
+    const sentFormData = mockedTranscribeAudio.mock.calls[0][0];
+    const sentFile = sentFormData.get("files");
+    expect(sentFile.size).toBeGreaterThan(0);
+    expect(mockedChatAskQuestion).toHaveBeenCalledWith(
+      { messages: [{ role: "user", text: "transcribed from recovered audio" }] },
+      "existing-session-id",
+      true
+    );
+    expect(mockSignals.onResponse).toHaveBeenCalledWith({ text: "AI response" });
+  });
+
+  it("throws an error when FormData file is empty and no audio blob is recovered", async () => {
+    mockUseState([
+      { initialValue: "existing-session-id", setter: vi.fn() },
+      { initialValue: [{role: "ai", text: "Hello!"}], setter: vi.fn() },
+      { initialValue: true, setter: vi.fn() }
+    ]);
+
+    mockGetRecordedAudioBlob.mockResolvedValue(null);
+
+    render(<ChatBox onClickPresetQuestion={() => {}} />);
+
+    const connectProp = mockCaptureConnect.mock.calls[0][0];
+    const mockSignals = { onResponse: vi.fn() };
+    const emptyFormData = new FormData();
+    emptyFormData.append("files", new File([], ""));
+
+    await expect(connectProp.handler(emptyFormData, mockSignals))
+      .rejects.toThrow("Audio recording failed. Please try again.");
+
+    expect(mockGetRecordedAudioBlob).toHaveBeenCalled();
+    expect(mockedTranscribeAudio).not.toHaveBeenCalled();
+    expect(mockedChatAskQuestion).not.toHaveBeenCalled();
   });
 });

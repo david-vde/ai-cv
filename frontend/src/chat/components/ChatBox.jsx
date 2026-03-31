@@ -12,6 +12,7 @@ import {SyncLoader} from "react-spinners";
 import {FaRotateLeft, FaTriangleExclamation} from "react-icons/fa6";
 import {getChatBotSessionId, initNewChatBotSession} from "../services/chatBotSession.js";
 import {transcribeAudio} from "../queries/audio-transcribe.jsx";
+import {useAudioRecordingFix, formDataHasEmptyFile, rebuildFormDataWithBlob} from "../hooks/useAudioRecordingFix.js";
 
 const ChatBox = forwardRef((props, ref) => {
   const { i18n } = useTranslation();
@@ -23,6 +24,7 @@ const ChatBox = forwardRef((props, ref) => {
   const [history, setHistory] = useState([])
   const [historyLoaded, setHistoryLoaded] = useState(false)
   const { t } = useTranslation();
+  const {getRecordedAudioBlob} = useAudioRecordingFix();
 
   const bubbleUserStyle = {
     backgroundColor: "#1f3a2d",
@@ -86,17 +88,6 @@ const ChatBox = forwardRef((props, ref) => {
   const onClickResetSession = () => {
     setSessionId(initNewChatBotSession());
   }
-
-  // Cette fonction intercepte TOUT ce qui va être ajouté au chat (et donc envoyé)
-  const interceptMessage = (message) => {
-    const chatElement = refDeepChat.current;
-
-    if (chatElement?._speechToText?.isRecording) {
-      chatElement._speechToText.stopRecording();
-    }
-
-    return message; // On retourne le message pour que le processus continue
-  };
 
   const personName = _.get(configs, ['contact.firstname']) + " " + _.get(configs, ['contact.lastname']);
 
@@ -215,15 +206,19 @@ const ChatBox = forwardRef((props, ref) => {
                       },
                     },
                   }}
-                  interceptHooks={{
-                    // C'est ici que tu branches la logique
-                    beforeAdd: interceptMessage
-                  }}
                   connect={{
                     handler: async (body, signals) => {
                       let answer;
 
                       if (body instanceof FormData) {
+                        if (formDataHasEmptyFile(body)) {
+                          const audioBlob = await getRecordedAudioBlob();
+                          if (!audioBlob) {
+                            throw new Error("Audio recording failed. Please try again.");
+                          }
+                          body = rebuildFormDataWithBlob(body, audioBlob);
+                        }
+
                         const messages = refDeepChat.current.getMessages();
                         const lastIndex = messages.length - 1;
                         refDeepChat.current.updateMessage({
