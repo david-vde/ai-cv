@@ -22,7 +22,13 @@ readonly class TranscribeController
     #[Route('/api/audio-transcribe', name: 'api_audio_transcribe', methods: ['POST'])]
     public function audioTranscribe(Request $request): JsonResponse
     {
-        $audioFile = $request->files->get('files');
+        $audioFile = $request->files->get('files') ?? $request->files->get('file') ?? reset($request->files->all());
+
+        if (!$audioFile && $request->getContent()) {
+            $tempPath = sys_get_temp_dir() . '/upload_' . uniqid();
+            file_put_contents($tempPath, $request->getContent());
+            $audioFile = new UploadedFile($tempPath, 'audio.webm', 'audio/webm', null, true);
+        }
 
         if (!$audioFile instanceof UploadedFile) {
             $audioFile = $request->files->get('file');
