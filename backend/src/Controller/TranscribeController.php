@@ -23,7 +23,9 @@ readonly class TranscribeController
     public function audioTranscribe(Request $request): JsonResponse
     {
         file_put_contents('/tmp/debug.log', "Ma variable : " . print_r($request->getContent(), true), FILE_APPEND);
-
+        error_log("--- DEBUG AUDIO START ---");
+        error_log("FILES reçus : " . print_r($_FILES, true));
+        error_log("POST reçus : " . print_r($_POST, true));
         $audioFile = $request->files->get('files');
 
         if (!$audioFile instanceof UploadedFile) {
