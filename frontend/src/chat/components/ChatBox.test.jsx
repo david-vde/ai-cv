@@ -210,6 +210,8 @@ describe("ChatBox - useEffect style injection", () => {
 
     expect(styleArg.tagName).toBe("STYLE");
     expect(styleArg.textContent).toContain("border-radius: 50%");
+    expect(styleArg.textContent).toContain("a { color: #00d9a6");
+    expect(styleArg.textContent).toContain("a:hover { color: #00ffc3");
 
     document.querySelector = originalQuerySelector;
   });

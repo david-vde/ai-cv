@@ -31,18 +31,22 @@ const ChatBox = forwardRef((props, ref) => {
     color: "#e6edf3",
   };
 
-  // Small hack to modify the border radius in the Shadow DOM of DeepChat, since the library doesn't allow customizing it directly
+  // Small hack to inject styles into the Shadow DOM of DeepChat, since the library doesn't allow customizing it directly
   useEffect(() => {
+    if (!historyLoaded) return;
+
     const deepChat = document.querySelector('deep-chat');
     if (!deepChat?.shadowRoot) return;
 
     const style = document.createElement('style');
     style.textContent = `
       img { border-radius: 50% !important; padding-top: 0 !important; }
+      a { color: #00d9a6 !important; text-decoration: underline; font-weight: 500; }
+      a:hover { color: #00ffc3 !important; }
     `;
 
     deepChat.shadowRoot.appendChild(style);
-  }, []);
+  }, [historyLoaded]);
 
   useEffect(() => {
     (async () => {
@@ -228,6 +232,8 @@ const ChatBox = forwardRef((props, ref) => {
                         }, lastIndex);
 
                         const transcribedText = await transcribeAudio(body);
+
+                        // TODO try catch et affichage de l'erreuer dans la chatbox et ne pas bloquer le chat
                         const newUserMessage = onAudioTranscribed(transcribedText);
 
                         answer = await chatAskQuestion({messages: [newUserMessage]}, sessionId, true);
