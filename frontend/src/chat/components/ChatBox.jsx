@@ -12,6 +12,7 @@ import {SyncLoader} from "react-spinners";
 import {FaRotateLeft, FaTriangleExclamation} from "react-icons/fa6";
 import {getChatBotSessionId, initNewChatBotSession} from "../services/chatBotSession.js";
 import {transcribeAudio} from "../queries/audio-transcribe.jsx";
+import {validateAudioFormData} from "../services/audioFormDataValidator.js";
 
 const ChatBox = forwardRef((props, ref) => {
   const { i18n } = useTranslation();
@@ -209,15 +210,9 @@ const ChatBox = forwardRef((props, ref) => {
                       let answer;
 
                       if (body instanceof FormData) {
-                        await new Promise(resolve => setTimeout(resolve, 300));
+                        const validatedFormData = await validateAudioFormData(body);
 
-                        const audioFile = body.get('files');
-
-                        if (!audioFile || audioFile.size === 0) {
-                          await new Promise(resolve => setTimeout(resolve, 200));
-                        }
-
-                        if (!audioFile || audioFile.size === 0) {
+                        if (!validatedFormData) {
                           await signals.onResponse({ error: "L'audio n'a pas pu être capturé correctement. Réessayez." });
                           return;
                         }
@@ -230,7 +225,7 @@ const ChatBox = forwardRef((props, ref) => {
                           files: []
                         }, lastIndex);
 
-                        const transcribedText = await transcribeAudio(body);
+                        const transcribedText = await transcribeAudio(validatedFormData);
                         const newUserMessage = onAudioTranscribed(transcribedText);
 
                         answer = await chatAskQuestion({messages: [newUserMessage]}, sessionId, true);
