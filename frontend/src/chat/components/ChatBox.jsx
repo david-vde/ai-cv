@@ -209,6 +209,24 @@ const ChatBox = forwardRef((props, ref) => {
                       let answer;
 
                       if (body instanceof FormData) {
+
+
+
+
+                        // --- SÉCURITÉ ANTI-COURSE ---
+                        const audioFile = body.get('files');
+
+                        if (!audioFile || audioFile.size === 0) {
+                          console.warn("Audio non prêt, tentative de récupération...");
+                          // Optionnel : tu peux tenter un petit delay de 200ms ici si nécessaire
+                          await new Promise(resolve => setTimeout(resolve, 200));
+                        }
+
+                        if (!audioFile || audioFile.size === 0) {
+                          await signals.onResponse({ error: "L'audio n'a pas pu être capturé correctement. Réessayez." });
+                          return;
+                        }
+
                         const messages = refDeepChat.current.getMessages();
                         const lastIndex = messages.length - 1;
                         refDeepChat.current.updateMessage({
