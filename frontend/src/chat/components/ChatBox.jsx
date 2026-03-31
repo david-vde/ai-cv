@@ -87,6 +87,17 @@ const ChatBox = forwardRef((props, ref) => {
     setSessionId(initNewChatBotSession());
   }
 
+  // Cette fonction intercepte TOUT ce qui va être ajouté au chat (et donc envoyé)
+  const interceptMessage = (message) => {
+    const chatElement = refDeepChat.current;
+
+    if (chatElement?._speechToText?.isRecording) {
+      chatElement._speechToText.stopRecording();
+    }
+
+    return message; // On retourne le message pour que le processus continue
+  };
+
   const personName = _.get(configs, ['contact.firstname']) + " " + _.get(configs, ['contact.lastname']);
 
   return (
@@ -203,6 +214,10 @@ const ChatBox = forwardRef((props, ref) => {
                         },
                       },
                     },
+                  }}
+                  interceptHooks={{
+                    // C'est ici que tu branches la logique
+                    beforeAdd: interceptMessage
                   }}
                   connect={{
                     handler: async (body, signals) => {
