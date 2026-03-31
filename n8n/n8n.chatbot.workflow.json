@@ -11,37 +11,17 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        640,
-        608
+        -256,
+        0
       ],
-      "id": "9ccb6bce-aafe-4911-a684-92b26c58297d",
+      "id": "33e70bce-d697-4ce8-8dbb-5539c344a062",
       "name": "Webhook",
       "webhookId": ""
     },
     {
       "parameters": {
-        "conditions": {
-          "boolean": [
-            {
-              "value1": "={{ $binary.question != undefined }}",
-              "value2": true
-            }
-          ]
-        }
-      },
-      "id": "863dbb91-9982-4367-b861-83cba1d3cd67",
-      "name": "Is Audio?",
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 1,
-      "position": [
-        864,
-        608
-      ]
-    },
-    {
-      "parameters": {
         "promptType": "define",
-        "text": "={{ $json.text || $json.body.question }}",
+        "text": "={{ $json.body.question }}",
         "options": {
           "systemMessage": "<REPLACE THIS ENTIRE TEXT WITH YOUR SYSTEM PROMPT>\n\nBelow is a guide to help you write an effective system prompt for your AI avatar.\n\n--- SECTION 1: IDENTITY & CONTACT INFO ---\nProvide your full identity and contact details so recruiters can reach you:\n- First name, Last name\n- Phone number\n- Email address\n- LinkedIn profile URL\n- GitHub / Portfolio URL\n- Location (city, country) and mobility/remote preferences\n\nExample:\n  You are the AI avatar of John Doe.\n  Phone: +33 6 12 34 56 78\n  Email: john.doe@email.com\n  LinkedIn: https://linkedin.com/in/johndoe\n  GitHub: https://github.com/johndoe\n  Location: Paris, France — open to full remote or hybrid.\n\n--- SECTION 2: PROFESSIONAL BACKGROUND ---\nDescribe your entire career path in detail. For each position, include:\n- Job title\n- Company name\n- Start date → End date\n- Tech stack used\n- Key responsibilities and achievements\n\nExample:\n  ## Professional Experience\n  ### Senior Fullstack Developer — Acme Corp (Jan 2022 → Present)\n  - **Stack:** React, TypeScript, Node.js, PostgreSQL, Docker\n  - Built a microservices architecture handling 10k+ requests/min\n  - Led a team of 4 developers\n  ### Fullstack Developer — StartupXYZ (Mar 2019 → Dec 2021)\n  - **Stack:** Vue.js, PHP/Symfony, MySQL\n  - Developed the company's main SaaS product from scratch\n\n--- SECTION 3: EDUCATION & CERTIFICATIONS ---\nList your degrees, training programs, and certifications.\n\nExample:\n  ## Education\n  - Master's in Computer Science — University of Paris (2019)\n  - AWS Certified Solutions Architect (2023)\n\n--- SECTION 4: SKILLS ---\nList your technical and soft skills, grouped by category.\n\nExample:\n  ## Skills\n  ### Frontend: React, Vue.js, TypeScript, Tailwind CSS\n  ### Backend: Node.js, PHP/Symfony, Python\n  ### DevOps: Docker, CI/CD, AWS, GitHub Actions\n  ### Soft skills: Team leadership, Agile/Scrum, mentoring\n\n--- SECTION 5: BEHAVIOR & RESPONSE GUIDELINES ---\nTell the LLM HOW it should behave and answer. This is critical.\n\nKey points to include:\n- Always answer as if you ARE the candidate (first person)\n- Use **Markdown formatting** to structure responses: headings, bullet points, sub-points, bold, etc.\n- Keep answers professional but friendly\n- If the recruiter asks something you don't have info about, say so honestly\n- Adapt the level of detail to the question\n- For technical questions, give concrete examples from your experience\n- Always be positive and highlight your strengths\n\nExample:\n  You must always respond using Markdown formatting:\n  - Use **bold** for key information\n  - Use bullet points and sub-points to structure your answers\n  - Use headings (##, ###) for long answers\n  You speak in first person as if you are John Doe.\n  You are professional, enthusiastic, and concise.\n  If you don't know something, say: I don't have that information, but feel free to contact me directly.\n\n--- SECTION 6: SAMPLE Q&A ---\nProvide example questions and ideal answers so the LLM learns your tone and style.\n\nExample:\n  ## Sample Q&A\n  **Q: Can you tell me about yourself?**\n  A: Sure! I'm John, a Senior Fullstack Developer with 7 years of experience...\n\n  **Q: What is your expected salary?**\n  A: My expected salary range is between 55k€ and 65k€ gross/year, depending on the overall package.\n\n  **Q: Are you available for a new position?**\n  A: Yes, I am currently open to new opportunities. My availability is 1 month notice.\n\n  **Q: What are your main strengths?**\n  A: I would highlight three key strengths:\n  - **Versatility**: comfortable across the full stack\n  - **Autonomy**: I can take a feature from design to production\n  - **Team spirit**: I enjoy mentoring and knowledge sharing\n\n--- END OF GUIDE — DELETE EVERYTHING ABOVE AND WRITE YOUR OWN PROMPT ---"
         }
@@ -49,10 +29,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        1312,
-        608
+        112,
+        0
       ],
-      "id": "2d663bf1-2bcb-4fbb-a36f-ac3e9b0f8d65",
+      "id": "ba449c5f-df65-4b1c-b3e9-ece9be9b4f20",
       "name": "AI Agent"
     },
     {
@@ -69,40 +49,38 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.3,
       "position": [
-        1264,
-        848
+        -32,
+        240
       ],
-      "id": "1994e754-3e24-4d94-9bcc-f9cad2699031",
+      "id": "ec22f4ec-f8d8-4dc6-8035-80449a52e10f",
       "name": "OpenAI Chat Model"
     },
     {
       "parameters": {
         "sessionIdType": "customKey",
-        "sessionKey": "={{ $('Webhook').first().json.query.sessionId }}",
+        "sessionKey": "={{$json.body.sessionId}}",
         "contextWindowLength": 20
       },
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        1440,
-        848
+        144,
+        240
       ],
-      "id": "9a6288a9-678c-4179-b40c-6dbc0a895ac0",
+      "id": "aeaae9d6-294a-455b-8587-270e47460ad4",
       "name": "Simple Memory"
     },
     {
       "parameters": {
-        "respondWith": "json",
-        "responseBody": "={{\n  (() => {\n    const question = $('Transcribe a recording').isExecuted \n      ? $('Transcribe a recording').first().json.text \n      : $('Webhook').first().json.body.question;\n    return JSON.stringify({\n      output: $json.output,\n      question: question\n    });\n  })()\n}}",
         "options": {}
       },
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1712,
-        608
+        592,
+        0
       ],
-      "id": "30196c94-288f-4f39-ba1a-3883f9b58e18",
+      "id": "733ba0ae-3d72-4fa0-a8d1-2f99d1337732",
       "name": "Respond to Webhook"
     },
     {
@@ -118,10 +96,10 @@
       "type": "n8n-nodes-base.dateTimeTool",
       "typeVersion": 2,
       "position": [
-        1760,
-        848
+        512,
+        240
       ],
-      "id": "e0282b33-0ecc-417b-b52f-b1a950829223",
+      "id": "2fb9e053-ac0b-4ffa-b698-24ee8275f4c3",
       "name": "Time Between Dates"
     },
     {
@@ -131,27 +109,11 @@
       "type": "n8n-nodes-base.dateTimeTool",
       "typeVersion": 2,
       "position": [
-        1600,
-        848
+        336,
+        240
       ],
-      "id": "c1b488b7-e5d6-4c01-b4df-a365e3af735e",
+      "id": "2a54d060-121e-48e2-9534-fded953cd200",
       "name": "Current Date Time"
-    },
-    {
-      "parameters": {
-        "resource": "audio",
-        "operation": "transcribe",
-        "binaryPropertyName": "question",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.openAi",
-      "typeVersion": 2.1,
-      "position": [
-        1088,
-        496
-      ],
-      "id": "d972a8b6-ecfd-4670-bf96-6a3c022d4622",
-      "name": "Transcribe a recording"
     }
   ],
   "pinData": {},
@@ -160,36 +122,7 @@
       "main": [
         [
           {
-            "node": "Is Audio?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Is Audio?": {
-      "main": [
-        [
-          {
-            "node": "Transcribe a recording",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
             "node": "AI Agent",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "AI Agent": {
-      "main": [
-        [
-          {
-            "node": "Respond to Webhook",
             "type": "main",
             "index": 0
           }
@@ -218,12 +151,12 @@
         ]
       ]
     },
-    "Current Date Time": {
-      "ai_tool": [
+    "AI Agent": {
+      "main": [
         [
           {
-            "node": "AI Agent",
-            "type": "ai_tool",
+            "node": "Respond to Webhook",
+            "type": "main",
             "index": 0
           }
         ]
@@ -240,12 +173,12 @@
         ]
       ]
     },
-    "Transcribe a recording": {
-      "main": [
+    "Current Date Time": {
+      "ai_tool": [
         [
           {
             "node": "AI Agent",
-            "type": "main",
+            "type": "ai_tool",
             "index": 0
           }
         ]
@@ -258,10 +191,9 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "cc025021-337e-45fd-95b7-8222faf33d8b",
+  "versionId": "213c68d6-a22d-4bad-8b22-d37923b838b2",
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "ed3fad80ed838cea8bf9a3fc31383fbd5e3a93d9866bb2772739c6979e3f1615"
+    "templateCredsSetupCompleted": true
   },
   "id": "fDWyGWB7rzmmarKL",
   "tags": []

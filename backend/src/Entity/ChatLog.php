@@ -28,6 +28,9 @@ class ChatLog
     #[Groups(['chatlog:public'])]
     private ?string $message = null;
 
+    #[ORM\Column(type: Types::BOOLEAN)]
+    private bool $transcribed = false;
+
     #[ORM\Column(length: 16, enumType: ChatLogStatus::class)]
     private ?ChatLogStatus $status = null;
 
@@ -137,6 +140,17 @@ class ChatLog
     public function setError(?string $error): static
     {
         $this->error = $error;
+        return $this;
+    }
+
+    public function isTranscribed(): bool
+    {
+        return $this->transcribed;
+    }
+
+    public function setTranscribed(bool $transcribed): ChatLog
+    {
+        $this->transcribed = $transcribed;
         return $this;
     }
 }

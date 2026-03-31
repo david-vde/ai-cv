@@ -5,10 +5,16 @@ import React, {
 import {render, screen} from "@testing-library/react";
 import {useConfig as mockedUseConfig} from "../../configs/context/ConfigContext.jsx";
 import {getChatBotSessionId as mockedGetChatBotSessionId, initNewChatBotSession as mockedInitNewChatBotSession} from "../services/chatBotSession.js";
+import {chatAskQuestion as mockedChatAskQuestion} from "../queries/ask-question.jsx";
+import {transcribeAudio as mockedTranscribeAudio} from "../queries/audio-transcribe.jsx";
 import _ from "lodash";
 import ChatBox from "./ChatBox.jsx";
 
 const mockSubmitUserMessage = vi.fn();
+const mockAddMessage = vi.fn();
+const mockGetMessages = vi.fn();
+const mockUpdateMessage = vi.fn();
+const mockCaptureConnect = vi.fn();
 
 vi.mock('../../configs/context/ConfigContext', () => ({
     useConfig: vi.fn() }
@@ -26,7 +32,7 @@ vi.mock("react", async () => {
     forwardRef: vi.fn(Component => Component),
     useEffect: vi.fn((fn) => fn()),
     useImperativeHandle: vi.fn(),
-    useRef: vi.fn(() => ({ current: { submitUserMessage: mockSubmitUserMessage } })),
+    useRef: vi.fn(() => ({ current: { submitUserMessage: mockSubmitUserMessage, addMessage: mockAddMessage, getMessages: mockGetMessages, updateMessage: mockUpdateMessage } })),
     useState: vi.fn()
   };
 });
@@ -44,12 +50,15 @@ vi.mock("./PreWrittenQuestions.jsx", () => ({
 }));
 
 vi.mock("deep-chat-react", () => ({
-  DeepChat: ({ history, textInput }) => (
-    <div data-testid="deep-chat">
-      <div data-testid="history-values">{JSON.stringify(history)}</div>
-      <div data-testid="placeholder-value">{textInput?.placeholder?.text}</div>
-    </div>
-  )
+  DeepChat: ({ history, textInput, connect }) => {
+    if (connect) mockCaptureConnect(connect);
+    return (
+      <div data-testid="deep-chat">
+        <div data-testid="history-values">{JSON.stringify(history)}</div>
+        <div data-testid="placeholder-value">{textInput?.placeholder?.text}</div>
+      </div>
+    );
+  }
 }));
 
 vi.mock("react-i18next", () => ({
@@ -66,6 +75,10 @@ vi.mock("react-spinners", () => ({
 vi.mock("react-icons/fa6", () => ({
   FaTriangleExclamation: () => <div data-testid="fa-triangle-exclamation">FaTriangleExclamation</div>,
   FaRotateLeft: () => <div data-testid="fa-rotate-left">FaRotateLeft</div>
+}));
+
+vi.mock("../queries/audio-transcribe.jsx", () => ({
+  transcribeAudio: vi.fn()
 }));
 
 function mockUseConfig() {
@@ -237,3 +250,73 @@ describe("ChatBox - useState sessionId", () => {
   });
 });
 
+describe("ChatBox - connect handler (onAudioTranscribed & chatAskQuestion)", () => {
+  beforeEach(() => {
+    mockCaptureConnect.mockClear();
+    mockedChatAskQuestion.mockClear();
+    mockedTranscribeAudio.mockClear();
+    mockAddMessage.mockClear();
+    mockGetMessages.mockClear();
+    mockUpdateMessage.mockClear();
+  });
+
+  it("calls transcribeAudio, onAudioTranscribed and chatAskQuestion with transcribed=true when body is FormData", async () => {
+    mockUseState([
+      { initialValue: "existing-session-id", setter: vi.fn() },
+      { initialValue: [{role: "ai", text: "Hello!"}], setter: vi.fn() },
+      { initialValue: true, setter: vi.fn() }
+    ]);
+
+    mockGetMessages.mockReturnValue([
+      { role: "user", html: "<audio>", files: ["audio.wav"] }
+    ]);
+    mockedTranscribeAudio.mockResolvedValue("transcribed text");
+    mockedChatAskQuestion.mockResolvedValue("AI response");
+
+    render(<ChatBox onClickPresetQuestion={() => {}} />);
+
+    const connectProp = mockCaptureConnect.mock.calls[0][0];
+    const mockSignals = { onResponse: vi.fn() };
+    const formData = new FormData();
+    formData.append("audio", new Blob(["audio-data"]), "audio.wav");
+
+    await connectProp.handler(formData, mockSignals);
+
+    expect(mockGetMessages).toHaveBeenCalled();
+    expect(mockUpdateMessage).toHaveBeenCalledWith(
+      { role: "user", html: '', files: [] },
+      0
+    );
+    expect(mockedTranscribeAudio).toHaveBeenCalledWith(formData);
+    expect(mockAddMessage).toHaveBeenCalledWith({ role: "user", text: "transcribed text" });
+    expect(mockedChatAskQuestion).toHaveBeenCalledWith(
+      { messages: [{ role: "user", text: "transcribed text" }] },
+      "existing-session-id",
+      true
+    );
+    expect(mockSignals.onResponse).toHaveBeenCalledWith({ text: "AI response" });
+  });
+
+  it("calls chatAskQuestion with transcribed=false when body is a regular object", async () => {
+    mockUseState([
+      { initialValue: "existing-session-id", setter: vi.fn() },
+      { initialValue: [{role: "ai", text: "Hello!"}], setter: vi.fn() },
+      { initialValue: true, setter: vi.fn() }
+    ]);
+
+    mockedChatAskQuestion.mockResolvedValue("AI text response");
+
+    render(<ChatBox onClickPresetQuestion={() => {}} />);
+
+    const connectProp = mockCaptureConnect.mock.calls[0][0];
+    const mockSignals = { onResponse: vi.fn() };
+    const body = { messages: [{ role: "user", text: "Hello" }] };
+
+    await connectProp.handler(body, mockSignals);
+
+    expect(mockedTranscribeAudio).not.toHaveBeenCalled();
+    expect(mockAddMessage).not.toHaveBeenCalled();
+    expect(mockedChatAskQuestion).toHaveBeenCalledWith(body, "existing-session-id");
+    expect(mockSignals.onResponse).toHaveBeenCalledWith({ text: "AI text response" });
+  });
+});

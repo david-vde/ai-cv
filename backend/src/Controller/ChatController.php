@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\ChatLogger\ChatLoggerInterface;
 use App\Webhook\QuestionPusherInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Attribute\AsController;
@@ -24,33 +23,14 @@ readonly class ChatController
         $data = json_decode($request->getContent(), true);
         $question = $data['question'] ?? null;
         $sessionId = $data['sessionId'] ?? uniqid('session_');
+        $transcribed = (bool)($data['transcribed'] ?? false);
 
         if (!$question) {
             return new JsonResponse(['error' => 'Empty question is not allowed.'], 400);
         }
 
         try {
-            $responseArray = $this->webhookPusher->pushTextRequest($question, $sessionId);
-            return new JsonResponse($responseArray);
-        } catch (\Exception $e) {
-            return new JsonResponse(json_encode([
-                'error' => 'Unable to contact AI agent.'
-            ]), 500, [], true);
-        }
-    }
-
-    #[Route('/api/voice-chat', name: 'api_voice_chat', methods: ['POST'])]
-    public function voiceChat(Request $request): JsonResponse
-    {
-        $audioQuestion = $request->files->get('files');
-        $sessionId = $request->request->get('sessionId');
-
-        if (!$audioQuestion instanceof UploadedFile) {
-            return new JsonResponse(['error' => 'Empty voice question is not allowed.'], 400);
-        }
-
-        try {
-            $responseArray = $this->webhookPusher->pushVoiceRequest($audioQuestion, $sessionId);
+            $responseArray = $this->webhookPusher->pushTextRequest($question, $sessionId, $transcribed);
             return new JsonResponse($responseArray);
         } catch (\Exception $e) {
             return new JsonResponse(json_encode([
@@ -75,7 +55,7 @@ readonly class ChatController
         } catch (\Exception) {
             return new JsonResponse([
                 'error' => 'Unable to retrieve history.'
-            ], 500, [], true);
+            ], 500, []);
         }
     }
 }

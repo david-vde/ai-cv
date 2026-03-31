@@ -72,4 +72,14 @@ final class ChatLogTest extends TestCase
         $chatLog->setId($id);
         $this->assertSame($id, $chatLog->getId());
     }
+
+    public function testTranscribedSetterGetter(): void
+    {
+        $chatLog = new ChatLog();
+        $this->assertFalse($chatLog->isTranscribed(), 'Default value should be false');
+        $chatLog->setTranscribed(true);
+        $this->assertTrue($chatLog->isTranscribed(), 'Should be true after setting to true');
+        $chatLog->setTranscribed(false);
+        $this->assertFalse($chatLog->isTranscribed(), 'Should be false after setting to false');
+    }
 }

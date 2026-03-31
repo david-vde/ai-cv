@@ -21,6 +21,7 @@ readonly class DatabaseChatLogger implements ChatLoggerInterface
      * @param string $sessionUuid
      * @param ChatLogStatus $status
      * @param string|null $error
+     * @param bool $transcribed
      * @return void
      */
     public function log(
@@ -28,14 +29,17 @@ readonly class DatabaseChatLogger implements ChatLoggerInterface
         string $message,
         string $sessionUuid,
         ChatLogStatus $status = ChatLogStatus::SUCCESS,
-        string $error = null): void
+        string $error = null,
+        bool $transcribed = false): void
     {
         $chatLog = (new ChatLog())
             ->setSender($sender)
             ->setMessage($message)
             ->setSession(new Uuid($sessionUuid))
             ->setStatus($status)
-            ->setError($error);
+            ->setError($error)
+            ->setTranscribed($transcribed)
+        ;
 
         $this->entityManager->persist($chatLog);
         $this->entityManager->flush();

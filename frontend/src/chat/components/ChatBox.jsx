@@ -1,7 +1,7 @@
 import React, {forwardRef, useEffect, useImperativeHandle, useRef, useState} from "react";
 import {DeepChat} from "deep-chat-react";
 import "../../assets/sass/chatbox.scss";
-import {chatAskQuestion, voiceChatAskQuestion} from "../queries/ask-question.jsx";
+import {chatAskQuestion} from "../queries/ask-question.jsx";
 import PreWrittenQuestions from "./PreWrittenQuestions.jsx";
 import davidPicture from "../../assets/pictures/david-avatar.jpg";
 import {useConfig} from "../../configs/context/ConfigContext.jsx";
@@ -11,6 +11,7 @@ import {getChatHistory} from "../queries/get-history.jsx";
 import {SyncLoader} from "react-spinners";
 import {FaRotateLeft, FaTriangleExclamation} from "react-icons/fa6";
 import {getChatBotSessionId, initNewChatBotSession} from "../services/chatBotSession.js";
+import {transcribeAudio} from "../queries/audio-transcribe.jsx";
 
 const ChatBox = forwardRef((props, ref) => {
   const { i18n } = useTranslation();
@@ -22,6 +23,11 @@ const ChatBox = forwardRef((props, ref) => {
   const [history, setHistory] = useState([])
   const [historyLoaded, setHistoryLoaded] = useState(false)
   const { t } = useTranslation();
+
+  const bubbleUserStyle = {
+    backgroundColor: "#1f3a2d",
+    color: "#e6edf3",
+  };
 
   // Small hack to modify the border radius in the Shadow DOM of DeepChat, since the library doesn't allow customizing it directly
   useEffect(() => {
@@ -63,6 +69,20 @@ const ChatBox = forwardRef((props, ref) => {
     }
   }))
 
+  const onAudioTranscribed = (transcribedText) => {
+    if (refDeepChat.current) {
+      refDeepChat.current.addMessage({
+        role: "user",
+        text: transcribedText
+      });
+    }
+
+    return {
+      role: "user",
+      text: transcribedText
+    };
+  }
+
   const onClickResetSession = () => {
     setSessionId(initNewChatBotSession());
   }
@@ -89,16 +109,7 @@ const ChatBox = forwardRef((props, ref) => {
                   ref={refDeepChat}
                   history={history}
                   microphone={{
-                    files: { maxNumberOfFiles: 1 },
-                    button: {
-                      default: {
-                        container: {
-                          default: {
-
-                          }
-                        }
-                      }
-                    }
+                    files: { maxNumberOfFiles: 1 }
                   }}
                   style={{
                     border: "none",
@@ -181,10 +192,7 @@ const ChatBox = forwardRef((props, ref) => {
                         }
                       },
                       user: {
-                        bubble: {
-                          backgroundColor: "#1f3a2d",
-                          color: "#e6edf3",
-                        },
+                        bubble: bubbleUserStyle
                       },
                     },
                     error: {
@@ -201,7 +209,18 @@ const ChatBox = forwardRef((props, ref) => {
                       let answer;
 
                       if (body instanceof FormData) {
-                        answer = await voiceChatAskQuestion(body, sessionId);
+                        const messages = refDeepChat.current.getMessages();
+                        const lastIndex = messages.length - 1;
+                        refDeepChat.current.updateMessage({
+                          role: "user",
+                          html: '',
+                          files: []
+                        }, lastIndex);
+
+                        const transcribedText = await transcribeAudio(body);
+                        const newUserMessage = onAudioTranscribed(transcribedText);
+
+                        answer = await chatAskQuestion({messages: [newUserMessage]}, sessionId, true);
                       } else {
                         answer = await chatAskQuestion(body, sessionId);
                       }

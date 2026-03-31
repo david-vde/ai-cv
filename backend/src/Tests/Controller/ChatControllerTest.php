@@ -4,13 +4,14 @@ namespace App\Tests\Controller;
 
 use App\ChatLogger\ChatLoggerInterface;
 use App\Controller\ChatController;
+use App\Entity\ChatLog;
 use App\Webhook\QuestionPusherInterface;
 use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class ChatControllerTest extends TestCase
@@ -135,62 +136,52 @@ final class ChatControllerTest extends TestCase
      * @return void
      * @throws Exception
      */
-    public function testVoiceChatReturnsResponseArrayOnSuccess(): void
+    public function testGetChatHistoryReturnsSerializedLogsOnSuccess(): void
     {
-        $sessionId = 'session_test';
+        $sessionId = '550e8400-e29b-41d4-a716-446655440000';
 
-        $uploadedFile = $this->createMock(UploadedFile::class);
+        $chatLog1 = (new ChatLog())->setSender('user')->setMessage('Hello');
+        $chatLog2 = (new ChatLog())->setSender('bot')->setMessage('Hi there');
+        $chatLogs = [$chatLog1, $chatLog2];
 
-        $request = new Request([], ['sessionId' => $sessionId], [], [], ['files' => $uploadedFile]);
-        $request->files->set('files', $uploadedFile);
+        $this->logger->expects($this->once())
+            ->method('history')
+            ->with($sessionId)
+            ->willReturn($chatLogs);
 
-        $expectedResponse = ['answer' => 'Voice response'];
-        $this->pusher->expects($this->once())
-            ->method('pushVoiceRequest')
-            ->with($uploadedFile, $sessionId)
-            ->willReturn($expectedResponse);
+        $serializer = $this->createMock(SerializerInterface::class);
+        $expectedJson = '[{"sender":"user","message":"Hello"},{"sender":"bot","message":"Hi there"}]';
+        $serializer->expects($this->once())
+            ->method('serialize')
+            ->with($chatLogs, 'json', ['groups' => 'chatlog:public'])
+            ->willReturn($expectedJson);
 
-        $response = $this->controller->voiceChat($request);
+        $response = $this->controller->getChatHistory($serializer, $sessionId);
 
         $this->assertInstanceOf(JsonResponse::class, $response);
-        $this->assertSame(json_encode($expectedResponse), $response->getContent());
-    }
-
-    /**
-     * @return void
-     */
-    public function testVoiceChatReturnsErrorOnMissingFile(): void
-    {
-        $request = new Request([], ['sessionId' => 'session_test']);
-
-        $response = $this->controller->voiceChat($request);
-
-        $this->assertInstanceOf(JsonResponse::class, $response);
-        $this->assertSame(json_encode(['error' => 'Empty voice question is not allowed.']), $response->getContent());
-        $this->assertSame(400, $response->getStatusCode());
+        $this->assertSame($expectedJson, $response->getContent());
+        $this->assertSame(200, $response->getStatusCode());
     }
 
     /**
      * @return void
      * @throws Exception
      */
-    public function testVoiceChatReturnsErrorOnException(): void
+    public function testGetChatHistoryReturnsErrorOnException(): void
     {
-        $sessionId = 'session_test';
+        $sessionId = '550e8400-e29b-41d4-a716-446655440000';
 
-        $uploadedFile = $this->createMock(UploadedFile::class);
+        $this->logger->expects($this->once())
+            ->method('history')
+            ->with($sessionId)
+            ->willThrowException(new \Exception('DB connection failed'));
 
-        $request = new Request([], ['sessionId' => $sessionId]);
-        $request->files->set('files', $uploadedFile);
+        $serializer = $this->createMock(SerializerInterface::class);
 
-        $this->pusher->expects($this->once())
-            ->method('pushVoiceRequest')
-            ->with($uploadedFile, $sessionId)
-            ->willThrowException(new \Exception('Some exception'));
+        $response = $this->controller->getChatHistory($serializer, $sessionId);
 
-        $response = $this->controller->voiceChat($request);
-
-        $this->assertSame(json_encode(['error' => 'Unable to contact AI agent.']), $response->getContent());
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertSame(json_encode(['error' => 'Unable to retrieve history.']), $response->getContent());
         $this->assertSame(500, $response->getStatusCode());
     }
 }

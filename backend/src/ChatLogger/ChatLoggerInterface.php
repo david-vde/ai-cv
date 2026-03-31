@@ -10,5 +10,14 @@ interface ChatLoggerInterface
         string $sessionUuid,
         ChatLogStatus $status =
         ChatLogStatus::SUCCESS,
-        string $error = null): void;
+        string $error = null,
+        bool $transcoded = false
+    ): void;
+
+    /**
+     * @param string $sessionUuid
+     * @param bool $includeErrors
+     * @return array
+     */
+    public function history(string $sessionUuid, bool $includeErrors = false): array;
 }

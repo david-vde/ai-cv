@@ -34,20 +34,22 @@ final class DatabaseChatLoggerTest extends TestCase
         $sessionUuid = Uuid::v4()->toRfc4122();
         $status = ChatLogStatus::SUCCESS;
         $error = null;
+        $transcribed = true;
 
         $this->entityManager->expects($this->once())
             ->method('persist')
-            ->with($this->callback(function ($entity) use ($sender, $message, $sessionUuid, $status, $error) {
+            ->with($this->callback(function ($entity) use ($sender, $message, $sessionUuid, $status, $error, $transcribed) {
                 return $entity instanceof ChatLog
                     && $entity->getSender() === $sender
                     && $entity->getMessage() === $message
                     && $entity->getSession()->toRfc4122() === $sessionUuid
                     && $entity->getStatus() === $status
-                    && $entity->getError() === $error;
+                    && $entity->getError() === $error
+                    && $entity->isTranscribed() === $transcribed;
             }));
         $this->entityManager->expects($this->once())
             ->method('flush');
 
-        $this->databaseChatLogger->log($sender, $message, $sessionUuid, $status, $error);
+        $this->databaseChatLogger->log($sender, $message, $sessionUuid, $status, $error, true);
     }
 }
