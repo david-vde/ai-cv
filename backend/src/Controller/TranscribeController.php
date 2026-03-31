@@ -22,36 +22,30 @@ readonly class TranscribeController
     #[Route('/api/audio-transcribe', name: 'api_audio_transcribe', methods: ['POST'])]
     public function audioTranscribe(Request $request): JsonResponse
     {
-        $audioFile = $request->files->get('files') ?? $request->files->get('file') ?? reset($request->files->all());
-
-        if (!$audioFile && $request->getContent()) {
-            $tempPath = sys_get_temp_dir() . '/upload_' . uniqid();
-            file_put_contents($tempPath, $request->getContent());
-            $audioFile = new UploadedFile($tempPath, 'audio.webm', 'audio/webm', null, true);
-        }
+        $audioFile = $request->files->get('files') ?? $request->files->get('file');
 
         if (!$audioFile instanceof UploadedFile) {
-            $audioFile = $request->files->get('file');
-        }
-
-        if (!$audioFile instanceof UploadedFile) {
-            return new JsonResponse(['error' => 'Missing audio file.'], 400);
-        }
-
-        if (!$audioFile instanceof UploadedFile && $request->files->all()) {
             $allFiles = $request->files->all();
-            $audioFile = reset($allFiles);
+            if (!empty($allFiles)) {
+                $audioFile = current($allFiles);
+            }
+        }
+
+        if (!$audioFile instanceof UploadedFile || $audioFile->getError() !== UPLOAD_ERR_OK) {
+            $errorCode = $audioFile instanceof UploadedFile ? $audioFile->getError() : 'no_file';
+            return new JsonResponse(['error' => 'Missing or invalid audio file. Code: ' . $errorCode], 400);
         }
 
         try {
             $audioModel = $this->uploadedFileDataExtractor->extractDataFromUploadedFile($audioFile);
+
             return new JsonResponse([
                 'transcription' => $this->audioTranscriber->transcribe($audioModel)
             ]);
         } catch (\Exception $e) {
-            return new JsonResponse(json_encode([
-                'error' => 'Unable to transcribe audio. ' . $e->getMessage()
-            ]), 500, [], true);
+            return new JsonResponse([
+                'error' => 'Unable to transcribe audio: ' . $e->getMessage()
+            ], 500);
         }
     }
 }
