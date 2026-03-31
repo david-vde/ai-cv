@@ -59,7 +59,7 @@ const ChatBox = forwardRef((props, ref) => {
       setHistory(newHistory);
       setHistoryLoaded(true);
     })()
-  }, [i18n]);
+  }, [i18n, sessionId]);
 
   useImperativeHandle(ref, () => ({
     sendPreset: (text) => {
