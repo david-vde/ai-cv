@@ -1,0 +1,46 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LinksPanel - rendering > renders the three links with FaGithub and FaLinkedin icons 1`] = `
+<div>
+  <div
+    class="links-panel"
+  >
+    <a
+      class="link-btn link-github"
+      href="https://github.com/johndoe"
+      target="_blank"
+    >
+      <div
+        class="MockedFaGithub"
+      >
+        FaGithub
+      </div>
+       GitHub
+    </a>
+    <a
+      class="link-btn link-linkedin"
+      href="https://www.linkedin.com/in/johndoe/"
+      target="_blank"
+    >
+      <div
+        class="MockedFaLinkedin"
+      >
+        FaLinkedin
+      </div>
+       LinkedIn
+    </a>
+    <a
+      class="link-btn link-repo"
+      href="https://github.com/johndoe/chatbot"
+      target="_blank"
+    >
+      <div
+        class="MockedFaGithub"
+      >
+        FaGithub
+      </div>
+       Chatbot repository
+    </a>
+  </div>
+</div>
+`;

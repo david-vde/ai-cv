@@ -57,6 +57,9 @@
       "404": {
         "label": "Page non trouvée"
       }
+    },
+    "chatbot": {
+      "transcriptionError": "Une erreur est survenue lors de la transcription audio. Veuillez ré-essayer ou écrire votre question."
     }
   },
   "cv": {

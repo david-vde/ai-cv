@@ -57,6 +57,9 @@
       "404": {
         "label": "Page not found"
       }
+    },
+    "chatbot": {
+      "transcriptionError": "An error occurred during audio transcription. Please try again or write your question."
     }
   },
   "cv": {

@@ -1,4 +1,3 @@
-import React from "react";
 import { retrieveConfig } from "./retrieve-configs";
 
 // Mock global fetch

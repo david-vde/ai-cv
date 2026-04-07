@@ -1,0 +1,30 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SkillTags - rendering > should render nothing when contact.skill_tags is undefined 1`] = `<div />`;
+
+exports[`SkillTags - rendering > should render skill tags correctly 1`] = `
+<div>
+  <div
+    class="tags"
+  >
+    <span
+      class="tag"
+      style="background-color: rgb(28, 46, 74); color: rgb(121, 192, 255); border-color: rgb(31, 111, 235);"
+    >
+      PHP
+    </span>
+    <span
+      class="tag"
+      style="background-color: rgb(28, 46, 28); color: rgb(126, 231, 135); border-color: rgb(35, 134, 54);"
+    >
+      Symfony
+    </span>
+    <span
+      class="tag"
+      style="background-color: rgb(42, 31, 26); color: rgb(255, 166, 87); border-color: rgb(189, 91, 16);"
+    >
+      MySQL
+    </span>
+  </div>
+</div>
+`;

@@ -1,0 +1,63 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Header - rendering > displays config data 1`] = `
+<div>
+  <header
+    class="header"
+  >
+    <div
+      class="header-inner"
+    >
+      <div
+        class="avatar-wrap"
+      >
+        <img
+          alt="John"
+          class="avatar"
+          src="/assets/pictures/david-avatar.jpg"
+        />
+      </div>
+      <div
+        class="bio"
+      >
+        <div
+          class="bio-name"
+        >
+          John
+           
+          Doe
+        </div>
+        <div
+          class="bio-title"
+        >
+          Ingenier
+            ·  
+          <span>
+            profile.yearsOfExperience - translated - {"years":5}
+          </span>
+        </div>
+        <div
+          class="MockedSkillTags"
+        >
+          SkillTags
+        </div>
+        <div
+          class="MockedContactLinks"
+        >
+          ContactLinks
+        </div>
+      </div>
+      <div
+        class="MockedLinksPanel"
+      >
+        LinksPanel
+      </div>
+    </div>
+    <div
+      class="MockedHeaderTabs"
+    >
+      HeaderTabs
+    </div>
+  </header>
+</div>
+`;

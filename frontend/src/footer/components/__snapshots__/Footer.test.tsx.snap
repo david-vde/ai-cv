@@ -1,0 +1,113 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Footer - rendering > renders the credits span with translated text 1`] = `
+<div>
+  <footer
+    class="footer"
+  >
+    <div
+      class="footer-inner"
+    >
+      <span
+        class="footer-hosting"
+      >
+        <span
+          data-testid="trans-footer.hosting"
+        >
+          footer.hosting
+           - translated with components
+        </span>
+      </span>
+      <span
+        class="footer-credits"
+      >
+        footer.credits - translated
+      </span>
+    </div>
+  </footer>
+</div>
+`;
+
+exports[`Footer - rendering > renders the footer element 1`] = `
+<div>
+  <footer
+    class="footer"
+  >
+    <div
+      class="footer-inner"
+    >
+      <span
+        class="footer-hosting"
+      >
+        <span
+          data-testid="trans-footer.hosting"
+        >
+          footer.hosting
+           - translated with components
+        </span>
+      </span>
+      <span
+        class="footer-credits"
+      >
+        footer.credits - translated
+      </span>
+    </div>
+  </footer>
+</div>
+`;
+
+exports[`Footer - rendering > renders the hosting span with Trans component 1`] = `
+<div>
+  <footer
+    class="footer"
+  >
+    <div
+      class="footer-inner"
+    >
+      <span
+        class="footer-hosting"
+      >
+        <span
+          data-testid="trans-footer.hosting"
+        >
+          footer.hosting
+           - translated with components
+        </span>
+      </span>
+      <span
+        class="footer-credits"
+      >
+        footer.credits - translated
+      </span>
+    </div>
+  </footer>
+</div>
+`;
+
+exports[`Footer - rendering > renders the inner wrapper 1`] = `
+<div>
+  <footer
+    class="footer"
+  >
+    <div
+      class="footer-inner"
+    >
+      <span
+        class="footer-hosting"
+      >
+        <span
+          data-testid="trans-footer.hosting"
+        >
+          footer.hosting
+           - translated with components
+        </span>
+      </span>
+      <span
+        class="footer-credits"
+      >
+        footer.credits - translated
+      </span>
+    </div>
+  </footer>
+</div>
+`;

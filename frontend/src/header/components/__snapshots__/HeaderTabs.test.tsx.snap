@@ -1,0 +1,51 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`HeaderTabs - rendering > renders links with the correct 'to' prop and children content 1`] = `
+<div>
+  <nav
+    class="nav-tabs"
+  >
+    <div
+      class="nav-tab"
+    >
+      <div
+        class="MockedLink"
+      >
+        <div
+          class="children"
+        >
+          tabs.chatbot.label - translated
+        </div>
+        <div
+          class="to"
+        >
+          /
+        </div>
+      </div>
+    </div>
+    <div
+      class="nav-tab active"
+    >
+      <div
+        class="MockedLink"
+      >
+        <div
+          class="children"
+        >
+          tabs.cv.label - translated
+        </div>
+        <div
+          class="to"
+        >
+          /cv
+        </div>
+      </div>
+    </div>
+    <div
+      class="MockedLanguageSelector"
+    >
+      LanguageSelector
+    </div>
+  </nav>
+</div>
+`;

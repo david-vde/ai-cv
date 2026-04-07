@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`LanguageSelector - rendering > renders Select with correct props when language is fr 1`] = `
+<div>
+  <div
+    data-classname="nav-lang"
+    data-has-formatoptionlabel="true"
+    data-options="[{"value":"fr","label":"Français","code":"FR"},{"value":"en","label":"English","code":"GB"},{"value":"nl","label":"Nederlands","code":"NL"}]"
+    data-testid="mock-select"
+    data-value="{"value":"fr","label":"Français","code":"FR"}"
+  >
+    ReactSelect
+  </div>
+</div>
+`;

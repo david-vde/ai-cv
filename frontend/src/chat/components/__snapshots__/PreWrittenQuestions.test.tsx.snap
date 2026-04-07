@@ -1,0 +1,591 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PreWrittenQuestions - Rendering > display question '{ cta: '⚠️ question.preWritten.short.weakness - translated', q: 'question.preWritten.full.weakness - translated' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 question.preWritten.short.introduce - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 question.preWritten.short.jobSearchReason - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ question.preWritten.short.quality - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ question.preWritten.short.weakness - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ question.preWritten.short.teamwork - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 question.preWritten.short.futureVision - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 question.preWritten.short.experience - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 question.preWritten.short.salary - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯 question.preWritten.short.hobbies - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 question.preWritten.short.familySituation - translated
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions - Rendering > display question '{ cta: '⭐ question.preWritten.short.quality - translated', q: 'question.preWritten.full.quality - translated' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 question.preWritten.short.introduce - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 question.preWritten.short.jobSearchReason - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ question.preWritten.short.quality - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ question.preWritten.short.weakness - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ question.preWritten.short.teamwork - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 question.preWritten.short.futureVision - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 question.preWritten.short.experience - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 question.preWritten.short.salary - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯 question.preWritten.short.hobbies - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 question.preWritten.short.familySituation - translated
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions - Rendering > display question '{ cta: '🎯 question.preWritten.short.hobbies - translated', q: 'question.preWritten.full.hobbies - translated' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 question.preWritten.short.introduce - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 question.preWritten.short.jobSearchReason - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ question.preWritten.short.quality - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ question.preWritten.short.weakness - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ question.preWritten.short.teamwork - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 question.preWritten.short.futureVision - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 question.preWritten.short.experience - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 question.preWritten.short.salary - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯 question.preWritten.short.hobbies - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 question.preWritten.short.familySituation - translated
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions - Rendering > display question '{ cta: '👨\\u200d👩\\u200d👧 question.preWritten.short.familySituation - translated', q: 'question.preWritten.full.familySituation - translated' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 question.preWritten.short.introduce - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 question.preWritten.short.jobSearchReason - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ question.preWritten.short.quality - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ question.preWritten.short.weakness - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ question.preWritten.short.teamwork - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 question.preWritten.short.futureVision - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 question.preWritten.short.experience - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 question.preWritten.short.salary - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯 question.preWritten.short.hobbies - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 question.preWritten.short.familySituation - translated
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions - Rendering > display question '{ cta: '👯\\u200d♀️ question.preWritten.short.teamwork - translated', q: 'question.preWritten.full.teamwork - translated' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 question.preWritten.short.introduce - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 question.preWritten.short.jobSearchReason - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ question.preWritten.short.quality - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ question.preWritten.short.weakness - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ question.preWritten.short.teamwork - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 question.preWritten.short.futureVision - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 question.preWritten.short.experience - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 question.preWritten.short.salary - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯 question.preWritten.short.hobbies - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 question.preWritten.short.familySituation - translated
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions - Rendering > display question '{ cta: '💰 question.preWritten.short.salary - translated', q: 'question.preWritten.full.salary - translated' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 question.preWritten.short.introduce - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 question.preWritten.short.jobSearchReason - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ question.preWritten.short.quality - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ question.preWritten.short.weakness - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ question.preWritten.short.teamwork - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 question.preWritten.short.futureVision - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 question.preWritten.short.experience - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 question.preWritten.short.salary - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯 question.preWritten.short.hobbies - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 question.preWritten.short.familySituation - translated
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions - Rendering > display question '{ cta: '💼 question.preWritten.short.jobSearchReason - translated', q: 'question.preWritten.full.jobSearchReason - translated' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 question.preWritten.short.introduce - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 question.preWritten.short.jobSearchReason - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ question.preWritten.short.quality - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ question.preWritten.short.weakness - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ question.preWritten.short.teamwork - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 question.preWritten.short.futureVision - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 question.preWritten.short.experience - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 question.preWritten.short.salary - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯 question.preWritten.short.hobbies - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 question.preWritten.short.familySituation - translated
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions - Rendering > display question '{ cta: '🔮 question.preWritten.short.futureVision - translated', q: 'question.preWritten.full.futureVision - translated' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 question.preWritten.short.introduce - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 question.preWritten.short.jobSearchReason - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ question.preWritten.short.quality - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ question.preWritten.short.weakness - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ question.preWritten.short.teamwork - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 question.preWritten.short.futureVision - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 question.preWritten.short.experience - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 question.preWritten.short.salary - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯 question.preWritten.short.hobbies - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 question.preWritten.short.familySituation - translated
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions - Rendering > display question '{ cta: '🧑 question.preWritten.short.introduce - translated', q: 'question.preWritten.full.introduce - translated' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 question.preWritten.short.introduce - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 question.preWritten.short.jobSearchReason - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ question.preWritten.short.quality - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ question.preWritten.short.weakness - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ question.preWritten.short.teamwork - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 question.preWritten.short.futureVision - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 question.preWritten.short.experience - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 question.preWritten.short.salary - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯 question.preWritten.short.hobbies - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 question.preWritten.short.familySituation - translated
+    </span>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PreWrittenQuestions - Rendering > display question '{ cta: '🧠 question.preWritten.short.experience - translated', q: 'question.preWritten.full.experience - translated' }' 1`] = `
+<DocumentFragment>
+  <div
+    class="cta-row"
+  >
+    <span
+      class="cta-chip"
+    >
+      🧑 question.preWritten.short.introduce - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💼 question.preWritten.short.jobSearchReason - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⭐ question.preWritten.short.quality - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      ⚠️ question.preWritten.short.weakness - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👯‍♀️ question.preWritten.short.teamwork - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🔮 question.preWritten.short.futureVision - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🧠 question.preWritten.short.experience - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      💰 question.preWritten.short.salary - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      🎯 question.preWritten.short.hobbies - translated
+    </span>
+    <span
+      class="cta-chip"
+    >
+      👨‍👩‍👧 question.preWritten.short.familySituation - translated
+    </span>
+  </div>
+</DocumentFragment>
+`;

@@ -57,6 +57,9 @@
       "404": {
         "label": "Pagina niet gevonden"
       }
+    },
+    "chatbot": {
+      "transcriptionError": "Er is een fout opgetreden bij het transcriberen van uw spraak. Probeer het opnieuw of typ uw vraag in."
     }
   },
   "cv": {

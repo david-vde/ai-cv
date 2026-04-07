@@ -1,0 +1,59 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Cv - rendering > should render an embed tag with the correct src from contact.cv_url config 1`] = `
+<div>
+  <div
+    class="cv"
+  >
+    <div
+      class="download"
+    >
+      <a
+        class="link"
+        download=""
+        href="/CV-DAVID.pdf"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        ⬇ 
+        cv.downloadMyPdfCV - translated
+      </a>
+    </div>
+    <embed
+      height="100%"
+      src="/CV-DAVID.pdf#toolbar=0&navpanes=0"
+      type="application/pdf"
+      width="80%"
+    />
+  </div>
+</div>
+`;
+
+exports[`Cv - rendering > should render the download link with the translated cv.downloadMyPdfCV key 1`] = `
+<div>
+  <div
+    class="cv"
+  >
+    <div
+      class="download"
+    >
+      <a
+        class="link"
+        download=""
+        href="/CV-DAVID.pdf"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        ⬇ 
+        cv.downloadMyPdfCV - translated
+      </a>
+    </div>
+    <embed
+      height="100%"
+      src="/CV-DAVID.pdf#toolbar=0&navpanes=0"
+      type="application/pdf"
+      width="80%"
+    />
+  </div>
+</div>
+`;

@@ -1,6 +1,6 @@
 import React, {useRef as mockedUseRef} from "react";
 import { render } from "@testing-library/react";
-import {useConfig as mockedUseConfig} from "./configs/context/ConfigContext.jsx";
+import {useConfig as mockedUseConfig} from "./configs/context/ConfigContext.tsx";
 import App from "./App.jsx";
 
 let capturedOnClickPresetQuestion;
@@ -38,7 +38,7 @@ vi.mock("./header/components/Header.jsx", () => ({
   }
 }));
 
-vi.mock("./footer/components/Footer.jsx", () => ({
+vi.mock("./footer/components/Footer.tsx", () => ({
   default: function MockedFooter() {
     return <div className="MockedFooter">MockedFooter</div>;
   }
@@ -49,7 +49,7 @@ vi.mock("react-spinners", () => ({
   PacmanLoader: () => <div className="MockedPacmanLoader" />
 }));
 
-vi.mock("./configs/context/ConfigContext.jsx", () => {
+vi.mock("./configs/context/ConfigContext.tsx", () => {
   return {
 	useConfig: vi.fn()
   };
