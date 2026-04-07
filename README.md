@@ -1,4 +1,4 @@
-# AvatarJobFinder
+# AI CV
 
 An AI-powered interactive CV / job finder application featuring a chatbot avatar that answers questions about the candidate's profile, experience, and skills.
 
@@ -22,38 +22,29 @@ An AI-powered interactive CV / job finder application featuring a chatbot avatar
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/AvatarJobFinder.git
-cd AvatarJobFinder
+git clone https://github.com/david-vde/ai-cv.git
+cd ai-cv
 ```
 
 ### 2. Configure environment variables
 
-Create a `.env` file at the project root with the following variables:
+The `.env` file is already versioned with default values. To override them with your own credentials, create a `backend/.env.local` file:
 
-```dotenv
-# Domain
-WEBSITE_DOMAIN=yourdomain.com
-
-# n8n (AI workflow engine)
-N8N_PORT=5678
-N8N_WEBHOOK_URL=https://yourdomain.com:5678/
-N8N_DB_NAME=<n8n_db_name>
-N8N_DB_USER=<n8n_user_name>
-N8N_DB_PASSWORD=<n8n_db_password>
-
-# Backend (Symfony API)
-BACKEND_DB_NAME=<backend_db_name>
-BACKEND_DB_USER=<backend_db_user>
-BACKEND_DB_PASSWORD=<backend_db_password>
-BACKEND_URL=https://yourbackenddomain.com/api
-
-# MySQL
-DB_HOST=mysql
-DB_PORT=3306
-DB_ROOT_PASSWORD=<db_root_password>
+```bash
+cp backend/.env backend/.env.local
 ```
 
-> ⚠️ **Do not commit the `.env` file.** It contains sensitive credentials. 
+Then edit `backend/.env.local` and set the following variables with your own values:
+
+```dotenv
+APP_ENV=dev
+DATABASE_URL="mysql://<db_user>:<db_password>@mysql:3306/<db_name>?serverVersion=8.0.32&charset=utf8mb4"
+OPEN_AI_API_PRIVATE_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+N8N_WEBHOOK_URL=http://n8n_local:5678/webhook/<your-webhook-id>
+DEFAULT_URI=https://yourdomain.com
+```
+
+> ⚠️ **Do not commit the `.env.local` file.** It contains sensitive credentials and is already listed in `.gitignore`.
 
 ### 3. Start with Docker Compose (development)
 
@@ -143,7 +134,7 @@ Provide example questions with ideal answers so the LLM learns your tone and sty
 ## Project Structure
 
 ```
-AvatarJobFinder/
+ai-cv/
 ├── frontend/          # React 19 + Vite application
 ├── backend/           # Symfony 7.4 API
 ├── n8n/               # n8n workflow (AI chatbot agent)
@@ -169,7 +160,7 @@ php bin/phpunit
 
 ## License
 
-This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0)**.
+This project is licensed under the **PolyForm Noncommercial License 1.0.0**.
 
 **You are free to:**
 - ✅ Fork, clone and use this code
@@ -177,11 +168,11 @@ This project is licensed under the **Creative Commons Attribution-NonCommercial 
 - ✅ Share it with others
 
 **Under the following conditions:**
-- ℹ️ **Attribution** — You must give appropriate credit and indicate if changes were made.
+- ℹ️ **Attribution** — You must include a copy of the license and the required notice.
 - 🚫 **NonCommercial** — You may **not** use this project for commercial purposes.
 
 See the full license text in the [LICENSE](./LICENSE) file or visit:
-[https://creativecommons.org/licenses/by-nc/4.0/](https://creativecommons.org/licenses/by-nc/4.0/)
+[https://polyformproject.org/licenses/noncommercial/1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0)
 
 ---
 
